@@ -9,3 +9,7 @@ ADD WorkEmail VARCHAR(255);
 -- Add preferred name to Person table 
 ALTER TABLE Person
 ADD PreferredName VARCHAR(50);
+
+--add contact person id to contact table
+ALTER TABLE Contact
+ADD ContactPersonId INT;
