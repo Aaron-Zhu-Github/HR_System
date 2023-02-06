@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-namespace HRSystem.HRDbContext
+﻿namespace HRSystem.DAO
 {
+    using Microsoft.EntityFrameworkCore;
+
     public class HRDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
@@ -12,11 +13,11 @@ namespace HRSystem.HRDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
-            option.UseSqlServer(_configuration.GetConnectionString("ConnectionStrings"));
+            _ = option.UseSqlServer(_configuration.GetConnectionString("ConnectionStrings"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {          
+        {
             //fluent APIs
         }
 

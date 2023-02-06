@@ -1,15 +1,15 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers.Models
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class VisaStatus
     {
         public int Id { get; set; }
 
 
         [Required, DisplayName("Visa Type")]
-        public string VisaType { get; set; }
+        public string? VisaType { get; set; }
 
 
         [Required]

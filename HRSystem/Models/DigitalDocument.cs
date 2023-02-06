@@ -1,25 +1,25 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class DigitalDocument
     {
         public int Id { get; set; }
 
 
         [DisplayName("Type of the document")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
 
         public bool Required { get; set; }
 
 
         [DataType(DataType.Url)]
-        public string TemplateLocation { get; set; }
+        public string? TemplateLocation { get; set; }
 
 
         [StringLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

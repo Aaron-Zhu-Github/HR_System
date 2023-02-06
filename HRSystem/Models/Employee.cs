@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers.Models
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class Employee
     {
         public int Id { get; set; }
@@ -12,7 +12,7 @@ namespace HRSystem.Controllers.Models
 
 
         [Required]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
 
         public int ManagerId { get; set; }
@@ -25,7 +25,7 @@ namespace HRSystem.Controllers.Models
 
         [Required, DisplayName("Employment End Date")]
         [DataType(DataType.Date)]
-        public DateOnly EndDate { get; set;}
+        public DateOnly EndDate { get; set; }
 
 
         //avatar
@@ -33,7 +33,7 @@ namespace HRSystem.Controllers.Models
 
         //Optional to class
         [StringLength(50)]
-        public string Car { get; set; }
+        public string? Car { get; set; }
 
 
         public int VisaStatusId { get; set; }
@@ -46,18 +46,18 @@ namespace HRSystem.Controllers.Models
 
         [Required, DisplayName("Visa End Date")]
         [DataType(DataType.Date)]
-        public DateOnly VisaEndDate { get;set; }
+        public DateOnly VisaEndDate { get; set; }
 
 
         [Required, DisplayName("Driver's Lisence")]
         [StringLength(50)]
-        public string DriverLisence { get; set; }
+        public string? DriverLisence { get; set; }
 
 
         [Required, DisplayName("Driver's Lisence Expiration Date")]
         [DataType(DataType.Date)]
         public DateOnly DriverLisence_ExpirationDate { get; set; }
-        
+
 
         [Required]
         public int HouseId { get; set; }

@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers.Models
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class PersonalDocument
     {
         public int Id { get; set; }
@@ -13,15 +13,15 @@ namespace HRSystem.Controllers.Models
 
         [Required]
         [DataType(DataType.Url)]
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
 
         [StringLength(50)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
 
         [StringLength(500)]
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
 
         [Required, DisplayName("Created Date")]

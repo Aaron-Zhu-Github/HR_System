@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers.Models
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public class ApplicationWorkFlow
     {
         public int Id { get; set; }
@@ -26,11 +26,11 @@ namespace HRSystem.Controllers.Models
 
 
         [StringLength(500, ErrorMessage = "Please write down less than 500 letters")]
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
 
         [Required, DisplayName("Application Type")]
         [StringLength(20)]
-        public string Type { get; set; }
+        public string? Type { get; set; }
     }
 }

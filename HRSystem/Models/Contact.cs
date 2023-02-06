@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace HRSystem.Controllers.Models
+﻿namespace HRSystem.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Contact
     {
         public int Id { get; set; }
@@ -13,11 +12,11 @@ namespace HRSystem.Controllers.Models
 
 
         [StringLength(20)]
-        public string Relationship { get; set; }
+        public string? Relationship { get; set; }
 
 
         [StringLength(20)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
 
         [Required]
