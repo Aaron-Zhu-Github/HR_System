@@ -1,8 +1,17 @@
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using System;
+using HRSystem.DAO;
+using HRSystem.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<PersonInfoDAO>();
+builder.Services.AddDbContext<HRDbContext>();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging(loggingbuilder =>

@@ -1,9 +1,12 @@
-﻿namespace HRSystem.DAO
-{
-    using Microsoft.EntityFrameworkCore;
+using System;
+using System.Security;
+using Microsoft.EntityFrameworkCore;
+using HRSystem.Models;
 
-    public class HRDbContext : DbContext
-    {
+namespace HRSystem.DAO
+{
+	public class HRDbContext:DbContext
+	{
         private readonly IConfiguration _configuration;
 
         public HRDbContext(IConfiguration configuration)
@@ -13,7 +16,7 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
-            _ = option.UseSqlServer(_configuration.GetConnectionString("ConnectionStrings"));
+            option.UseSqlServer(_configuration.GetConnectionString("Default"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +24,10 @@
             //fluent APIs
         }
 
-        //entities
+        public DbSet<User> Users { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }
+

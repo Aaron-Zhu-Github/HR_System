@@ -1,10 +1,14 @@
-﻿namespace HRSystem.Models
-{
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace HRSystem.Models
+{
+    [Table("Address")]
     public class Address
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
 
 
@@ -37,8 +41,9 @@
         [StringLength(5)]
         public string? StateAbbr { get; set; }
 
-
-        [Required]
         public int PersonId { get; set; }
+
+        [ForeignKey("PersonId")]
+        public virtual Person Person { get; set; }
     }
 }

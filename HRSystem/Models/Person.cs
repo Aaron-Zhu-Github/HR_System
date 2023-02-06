@@ -1,9 +1,15 @@
-﻿namespace HRSystem.Models
-{
-    using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
+namespace HRSystem.Models
+{
+    [Table("Person")]
     public class Person
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
 
 
@@ -48,8 +54,9 @@
 
         [Required(ErrorMessage = "You must insert your date of birth")]
         [DataType(DataType.Date)]
-        public DateOnly DOB { get; set; }
+        public DateTime DOB { get; set; }
 
 
     }
 }
+

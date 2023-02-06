@@ -1,11 +1,15 @@
-﻿namespace HRSystem.Models
-{
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace HRSystem.Models
+{
+    [Table("Contact")]
     public class Contact
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
-
 
 
         public int PersonId { get; set; }
@@ -29,5 +33,8 @@
 
         [Required]
         public bool isLandload { get; set; }
+
+
     }
 }
+

@@ -1,4 +1,7 @@
-﻿namespace HRSystem.Models
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace HRSystem.Models
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
