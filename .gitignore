@@ -352,3 +352,4 @@ MigrationBackup/
 #angular cache
 /.angular/cache
 .angular/cache
+.DS_Store
