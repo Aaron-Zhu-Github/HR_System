@@ -10,8 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<PersonInfoDAO>();
+builder.Services.AddTransient<HouseDAO>();
 builder.Services.AddDbContext<HRDbContext>();
 builder.Services.AddTransient<OnBoardingDAO>();
+
 
 builder.Services.AddSwaggerGen();
 

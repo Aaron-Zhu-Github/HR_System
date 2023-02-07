@@ -27,6 +27,13 @@ namespace HRSystem.DAO
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<Address>().ToTable("Address");
 
+            modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<Facility>().ToTable("Facility");
+            modelBuilder.Entity<FacilityReport>().ToTable("FacilityReport");
+            modelBuilder.Entity<FacilityReportDetail>().ToTable("FacilityReportDetail");
+            modelBuilder.Entity<House>().ToTable("House");
+
+
             //onBoarding tables relationship starts
             //one to one
             modelBuilder.Entity<Person>()
@@ -65,6 +72,7 @@ namespace HRSystem.DAO
             .WithMany(e => e.PersonalDocuments)
             .HasForeignKey(pd => pd.EmployeeId);
             //onBoarding tables relationship ends
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -74,8 +82,15 @@ namespace HRSystem.DAO
         public DbSet<ApplicationWorkFlow> ApplicationWorkFlows { get; set; }
         public DbSet<DigitalDocument> DigitalDocuments { get; set; }
         public DbSet<Employee> Employees { get; set; }
+
+        public virtual DbSet<Facility> Facilitys { get; set; }
+        public virtual DbSet<FacilityReport> FacilityReports { get; set; }
+        public virtual DbSet<FacilityReportDetail> FacilityReportDetails { get; set; }
+        public virtual DbSet<House> Houses { get; set; }
+
         public DbSet<PersonalDocument> PersonalDocuments { get; set; }
         public DbSet<VisaStatus> VisaStatuses { get; set; }
+
     }
 }
 
