@@ -14,7 +14,6 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
 
-
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 
 
@@ -28,6 +27,9 @@
     <Compile Remove="ClientApp\.angular\**" />
     <Compile Remove="DTO\**" />
     <Content Remove="$(SpaRoot)**" />
+
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+
     <Content Remove="ClientApp\.angular\**" />
     <Content Remove="DTO\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -35,20 +37,24 @@
     <EmbeddedResource Remove="DTO\**" />
     <None Remove="ClientApp\.angular\**" />
     <None Remove="DTO\**" />
+
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Models\" />
     <None Remove="DAO\" />
     <None Remove="Microsoft.Extensions.Logging" />
     <None Remove="DTO\" />
+
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
+
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="DAO\" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -84,7 +90,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

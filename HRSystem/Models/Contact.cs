@@ -23,15 +23,12 @@ namespace HRSystem.Models
         public string? Title { get; set; }
 
 
-        [Required]
         public bool isReferrence { get; set; }
 
 
-        [Required]
         public bool isEmergency { get; set; }
 
 
-        [Required]
         public bool isLandload { get; set; }
 
 

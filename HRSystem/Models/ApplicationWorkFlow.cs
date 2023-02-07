@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HRSystem.Models
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    [Table("ApplicationWorkFlow")]
     public class ApplicationWorkFlow
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
 
 
@@ -34,6 +35,6 @@ namespace HRSystem.Models
 
         [Required, DisplayName("Application Type")]
         [StringLength(20)]
-        public string? Type { get; set; }
+        public string Type { get; set; }
     }
 }

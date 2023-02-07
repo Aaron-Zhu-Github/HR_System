@@ -1,20 +1,20 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HRSystem.Models
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    [Table("PersonalDocument")]
     public class PersonalDocument
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
 
 
         public int EmployeeId { get; set; }
 
 
-        [Required]
         [DataType(DataType.Url)]
         public string? Path { get; set; }
 
@@ -27,12 +27,12 @@ namespace HRSystem.Models
         public string? Comment { get; set; }
 
 
-        [Required, DisplayName("Created Date")]
+        [DisplayName("Created Date")]
         [DataType(DataType.Date)]
-        public DateOnly CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
 
-        [Required, DisplayName("Created By")]
-        public int CreatedBy { get; set; }
+        [DisplayName("Created By")]
+        public int? CreatedBy { get; set; }
     }
 }

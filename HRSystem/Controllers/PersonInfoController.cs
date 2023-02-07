@@ -13,12 +13,10 @@ namespace HRSystem.Controllers
     public class PersonInfoController : ControllerBase
     {
         private readonly PersonInfoDAO _personInfoDAO;
-        //private readonly ILogger _logger;
 
         public PersonInfoController(PersonInfoDAO personInfoDAO)
         {
             _personInfoDAO = personInfoDAO;
-            //_logger = logger;
         }
         // GET: /<controller>/
         //public IActionResult Index()
@@ -29,24 +27,8 @@ namespace HRSystem.Controllers
         [HttpGet("person/name/{userid}")]
         public ActionResult<Person> GetNameSec(int userid)
         {
-            //try
-            //{
-            //    int pid = _personInfoDAO.GetUserByID(userid).PersonID;
-            //    if (pid != null)
-            //    {
-            //        var res = _personInfoDAO.GetPerson(pid);
-            //        return Ok(res);
-            //    }
-
-            //} catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, ex.Message);
-            //}
-            //return NoContent();
-
-            
-            var test = _personInfoDAO.GetUserByID(userid);
             int pid = _personInfoDAO.GetUserByID(userid).PersonId;
+            //var test = _personInfoDAO.GetPerson(3);
             if (pid != null)
             {
                 var res = _personInfoDAO.GetPerson(pid);
@@ -56,8 +38,19 @@ namespace HRSystem.Controllers
             return NoContent();
         }
 
-        //public ActionResult<Address>
+        public ActionResult<Address> GetAddressSec(int userid)
+        {
+            int pid = _personInfoDAO.GetUserByID(userid).PersonId;
+            
+            if (pid != null)
+            {
+                var res = _personInfoDAO.GetAddress(pid);
+                return Ok(res);
+            }
 
+            return NoContent();
+        }
+        
 
     }
 

@@ -17,14 +17,15 @@ namespace HRSystem.DAO
 		//get user by userid
 		public User GetUserByID(int userid)
 		{
-			var test = _dbContext.Users.Select(u => u).ToList();
             return _dbContext.Users.Where(u => u.Id == userid).FirstOrDefault();
 		}
 
 		//get person by pid
 		public Person GetPerson(int pid)
 		{
-			return _dbContext.Persons.SingleOrDefault(p => p.Id == pid);
+			//var test = _dbContext.Persons.ToList();
+
+            return _dbContext.Persons.Where(p => p.Id == pid).FirstOrDefault();
 		}
 
 		//get address by pid
@@ -38,6 +39,13 @@ namespace HRSystem.DAO
         {
             return _dbContext.Contacts.Where(c => c.PersonId == pid).ToList();
         }
+
+		//get employee by pid
+		public Employee GetEmployee(int pid)
+		{
+			return _dbContext.Employees.Where(e => e.PersonId == pid).SingleOrDefault();
+        }
+
     }
 }
 

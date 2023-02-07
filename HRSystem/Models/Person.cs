@@ -13,24 +13,20 @@ namespace HRSystem.Models
         public int Id { get; set; }
 
 
-        [Display(Name = "First Name"), Required(ErrorMessage = "First Name must be inserted")]
-        public string? Firstname { get; set; }
+        public string Firstname { get; set; }
 
 
-        [Display(Name = "Last Name"), Required(ErrorMessage = "First Name must be inserted")]
-        public string? Lastname { get; set; }
+        public string Lastname { get; set; }
 
 
         [Display(Name = "Middle Name")]
         public string? Middlename { get; set; }
 
 
-        [Required]
         [DataType(DataType.EmailAddress)]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "Phone number must be inserted")]
         [DataType(DataType.PhoneNumber)]
         public string? CellPhone { get; set; }
 
@@ -48,15 +44,15 @@ namespace HRSystem.Models
         }
 
 
-        //[Required(ErrorMessage = "You must insert a SSN")]
         public string? SSN { get; set; }
 
 
-        [Required(ErrorMessage = "You must insert your date of birth")]
         [DataType(DataType.Date)]
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
 
+        public string? PreferredName { get; set; }
 
+        public string? WorkEmail { get; set; }
     }
 }
 

@@ -26,12 +26,15 @@ namespace HRSystem.DAO
             modelBuilder.Entity<Contact>().ToTable("Contact");
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<Address>().ToTable("Address");
+            modelBuilder.Entity<Employee>().ToTable("Employee");
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
     }
 }
 
