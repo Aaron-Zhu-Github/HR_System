@@ -19,12 +19,16 @@ namespace HRSystem.Models
         public bool Active { get; set; }
 
 
-        [DisplayName("Modification Date")]
+        //[Required, DisplayName("Modification Date")]
         [DataType(DataType.Date)]
-        public DateOnly ModificationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
 
 
         [DisplayName("Create User")]
         public int CreateUser { get; set; }
+
+
+        //EF relationship
+        public virtual Employee Employee { get; set; }
     }
 }

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
-{
+{ 
+
     [Table("Person")]
     public class Person
     {
@@ -19,7 +20,7 @@ namespace HRSystem.Models
         public string Lastname { get; set; }
 
 
-        [Display(Name = "Middle Name")]
+       // [Display(Name = "Middle Name")]
         public string? Middlename { get; set; }
 
 
@@ -31,24 +32,30 @@ namespace HRSystem.Models
         public string? CellPhone { get; set; }
 
 
-        [DataType(DataType.PhoneNumber)]
+        //[DataType(DataType.PhoneNumber)]
         public string? AlternatePhone { get; set; }
 
 
         //Gender
-        public enum Gender
-        {
-            Male,
-            Female,
-            Other
-        }
+        public string? Gender { get; set; }
 
 
         public string? SSN { get; set; }
 
 
+        //[Required(ErrorMessage = "You must insert your date of birth")]
         [DataType(DataType.Date)]
         public DateTime? DOB { get; set; }
+
+        
+        //EF relationships
+        public virtual Address? Address { get; set; }
+
+        public virtual Employee? Employee { get; set; }
+
+        public virtual ICollection<Contact>? Contacts { get; set; }//one person has many contacts
+
+        public virtual Contact? Contact { get; set; }//one contact has one contact person
 
         public string? PreferredName { get; set; }
 

@@ -15,6 +15,8 @@ namespace HRSystem.Models
 
 
         public int PersonId { get; set; }
+        //EF relationship
+        public virtual Person Person { get; set; }
 
 
         public string? Title { get; set; }
@@ -37,10 +39,12 @@ namespace HRSystem.Models
 
 
         [StringLength(50)]
-        public string? Car { get; set; }
+        public string Car { get; set; }
 
 
-        public int? VisaStatusId { get; set; }
+        public int VisaStatusId { get; set; }
+        //EF relationship
+        public virtual VisaStatus VisaStatus { get; set;}
 
 
         [DisplayName("Visa Start Date")]
@@ -55,7 +59,7 @@ namespace HRSystem.Models
 
         [DisplayName("Driver's Lisence")]
         [StringLength(50)]
-        public string? DriverLisence { get; set; }
+        public string DriverLisence { get; set; }
 
 
         [DisplayName("Driver's Lisence Expiration Date")]
@@ -64,5 +68,11 @@ namespace HRSystem.Models
 
 
         public int HouseId { get; set; }
+
+
+        //EF realtionship
+        public virtual ApplicationWorkFlow ApplicationWorkFlow { get; set; }
+
+        public virtual ICollection<PersonalDocument> PersonalDocuments { get; set; }
     }
 }

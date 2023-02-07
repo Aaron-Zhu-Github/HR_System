@@ -13,27 +13,29 @@ namespace HRSystem.Models
 
 
         public int EmployeeId { get; set; }
+        //EF relationship
+        public virtual Employee Employee { get; set; }
 
 
-        [Required, DisplayName("Created Date")]
-        [DataType(DataType.Date)]
-        public DateOnly CreatedDate { get; set; }
+        //[Required, DisplayName("Created Date")]
+        //[DataType(DataType.Date)]
+        public DateTime CreatedDate { get; set; }
 
 
-        [Required, DisplayName("Modification Date")]
-        [DataType(DataType.Date)]
-        public DateOnly ModificationDate { get; set; }
+        //[Required, DisplayName("Modification Date")]
+        //[DataType(DataType.Date)]
+        public DateTime ModificationDate { get; set; }
 
 
-        [Required, DisplayName("Application Status")]
+        //[Required, DisplayName("Application Status")]
         public bool Status { get; set; }
 
 
         [StringLength(500, ErrorMessage = "Please write down less than 500 letters")]
-        public string? Comments { get; set; }
+        public string Comments { get; set; }
 
 
-        [Required, DisplayName("Application Type")]
+        [DisplayName("Application Type")]
         [StringLength(20)]
         public string Type { get; set; }
     }

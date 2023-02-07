@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddTransient<PersonInfoDAO>();
 builder.Services.AddDbContext<HRDbContext>();
+builder.Services.AddTransient<OnBoardingDAO>();
 
 builder.Services.AddSwaggerGen();
 

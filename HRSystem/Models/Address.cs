@@ -12,25 +12,27 @@ namespace HRSystem.Models
         public int Id { get; set; }
 
 
-        [DisplayName("Address Line 1"), Required(ErrorMessage = "Address is required")]
+        [DisplayName("Address Line 1")]
         [StringLength(200)]
         public string AddressLine1 { get; set; }
 
 
         [DisplayName("Address Line 2")]
         [StringLength(200)]
-        public string? AddressLine2 { get; set; }
+        public string AddressLine2 { get; set; }
 
 
+        [Required(ErrorMessage = "City name is required")]
         [StringLength(20)]
         public string City { get; set; }
 
 
+        //[Required(ErrorMessage = "Area zipcode is required")]
         [DataType(DataType.PostalCode)]
         public string Zipcode { get; set; }
 
 
-        [DisplayName("State Name"), Required(ErrorMessage = "Name of the State is required")]
+        [DisplayName("State Name")]
         [StringLength(50)]
         public string StateName { get; set; }
 

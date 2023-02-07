@@ -13,18 +13,20 @@ namespace HRSystem.Models
 
 
         public int EmployeeId { get; set; }
+        //EF relationship
+        public virtual Employee Employee { get; set; }
 
 
         [DataType(DataType.Url)]
-        public string? Path { get; set; }
+        public string Path { get; set; }
 
 
         [StringLength(50)]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
 
         [StringLength(500)]
-        public string? Comment { get; set; }
+        public string Comment { get; set; }
 
 
         [DisplayName("Created Date")]

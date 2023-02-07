@@ -13,14 +13,16 @@ namespace HRSystem.Models
 
 
         public int PersonId { get; set; }
+        //EF relationship
+        public virtual Person Person { get; set; }
 
 
         [StringLength(20)]
-        public string? Relationship { get; set; }
+        public string Relationship { get; set; }
 
 
         [StringLength(20)]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
 
         public bool isReferrence { get; set; }
@@ -32,6 +34,10 @@ namespace HRSystem.Models
         public bool isLandload { get; set; }
 
 
+        //[Required]
+        public int ContactPersonId { get; set; }
+        //EF relationship
+        public virtual Person ContactPerson { get; set; }
     }
 }
 
