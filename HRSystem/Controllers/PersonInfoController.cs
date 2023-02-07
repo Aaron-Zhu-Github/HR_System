@@ -44,6 +44,7 @@ namespace HRSystem.Controllers
             //}
             //return NoContent();
 
+            
             var test = _personInfoDAO.GetUserByID(userid);
             int pid = _personInfoDAO.GetUserByID(userid).PersonId;
             if (pid != null)

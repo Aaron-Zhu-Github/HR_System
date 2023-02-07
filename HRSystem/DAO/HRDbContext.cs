@@ -22,6 +22,10 @@ namespace HRSystem.DAO
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //fluent APIs
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Contact>().ToTable("Contact");
+            modelBuilder.Entity<Person>().ToTable("Person");
+            modelBuilder.Entity<Address>().ToTable("Address");
         }
 
         public DbSet<User> Users { get; set; }

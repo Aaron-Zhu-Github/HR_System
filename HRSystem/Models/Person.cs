@@ -48,7 +48,7 @@ namespace HRSystem.Models
         }
 
 
-        [Required(ErrorMessage = "You must insert a SSN")]
+        //[Required(ErrorMessage = "You must insert a SSN")]
         public string? SSN { get; set; }
 
 
