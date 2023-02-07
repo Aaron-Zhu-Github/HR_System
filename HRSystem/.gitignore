@@ -229,3 +229,10 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+#angular cache
+/.angular/cache
+.angular/cache
+.DS_Store
+/HRSystem/ClientApp/.angular/cache/14.0.3
+*/.angular/cache
