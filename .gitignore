@@ -353,3 +353,5 @@ MigrationBackup/
 /.angular/cache
 .angular/cache
 .DS_Store
+/HRSystem/ClientApp/.angular/cache/14.0.3
+*/.angular/cache
