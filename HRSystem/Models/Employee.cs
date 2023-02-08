@@ -43,9 +43,9 @@ namespace HRSystem.Models
         public string? Car { get; set; }
 
 
-        public int VisaStatusId { get; set; }
-        //EF relationship
-        public virtual VisaStatus? VisaStatus { get; set;}
+        public int? VisaStatusId { get; set; }
+        [ForeignKey("VisaStatusId")]
+        public virtual VisaStatus? VisaStatus { get; set; }
 
 
         [DisplayName("Visa Start Date")]

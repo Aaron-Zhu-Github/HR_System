@@ -19,10 +19,9 @@ namespace HRSystem.Models
 
         [DisplayName("Address Line 2")]
         [StringLength(200)]
-        public string AddressLine2 { get; set; }
+        public string? AddressLine2 { get; set; }
 
 
-        [Required(ErrorMessage = "City name is required")]
         [StringLength(20)]
         public string City { get; set; }
 

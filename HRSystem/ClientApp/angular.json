@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "HRSystem"
+  "defaultProject": "HRSystem",
+  "cli": {
+    "analytics": "dd2fdcd6-4528-4c8a-9811-dd57e8a47678"
+  }
 }

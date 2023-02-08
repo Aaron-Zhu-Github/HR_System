@@ -6,8 +6,8 @@ using HRSystem.DTO;
 
 namespace HRSystem.DAO
 {
-	public class HRDbContext:DbContext
-	{
+    public class HRDbContext : DbContext
+    {
         private readonly IConfiguration _configuration;
 
         public HRDbContext(IConfiguration configuration)
@@ -81,17 +81,16 @@ namespace HRSystem.DAO
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<PersonalDocument> PersonalDocuments { get; set; }
         public DbSet<ApplicationWorkFlow> ApplicationWorkFlows { get; set; }
         public DbSet<DigitalDocument> DigitalDocuments { get; set; }
-        public DbSet<Employee> Employees { get; set; }
 
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<FacilityReport> FacilityReports { get; set; }
         public virtual DbSet<FacilityReportDetail> FacilityReportDetails { get; set; }
         public virtual DbSet<House> Houses { get; set; }
         public virtual DbSet<HouseDetail> HouseDetails { get; set; }
-
-        public DbSet<PersonalDocument> PersonalDocuments { get; set; }
         public DbSet<VisaStatus> VisaStatuses { get; set; }
 
     }

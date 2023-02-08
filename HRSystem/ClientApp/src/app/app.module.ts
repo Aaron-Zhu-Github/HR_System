@@ -10,6 +10,11 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VisaStatusManagementComponent } from './visa-status-management/visa-status-management.component';
+import { PersonInfoComponent } from './person-info/person-info.component';
+import { NameSecComponent } from './person-info/name-sec/name-sec.component';
+import { AddressSecComponent } from './person-info/address-sec/address-sec.component';
+import { ContactSecComponent } from './person-info/contact-sec/contact-sec.component';
+import { EmploymentSecComponent } from './person-info/employment-sec/employment-sec.component';
 import { OnBoardingInsertFormComponent } from './on-boarding-insert-form/on-boarding-insert-form.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
@@ -21,8 +26,13 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    OnBoardingInsertFormComponent
-    LoginComponent
+    PersonInfoComponent,
+    NameSecComponent,
+    AddressSecComponent,
+    ContactSecComponent,
+    EmploymentSecComponent,
+    OnBoardingInsertFormComponent,
+    LoginComponent,
 
   ],
   imports: [
@@ -36,7 +46,8 @@ import { LoginComponent } from './login/login.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       {path: 'VisaStatus', component: VisaStatusManagementComponent},
-      { path: 'OnBoarding', component: OnBoardingInsertFormComponent}
+      {path: 'PersonalInformation', component: PersonInfoComponent},
+      { path: 'OnBoarding', component: OnBoardingInsertFormComponent},
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],

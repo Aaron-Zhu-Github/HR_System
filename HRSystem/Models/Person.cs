@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
-{ 
+{
 
     [Table("Person")]
     public class Person
@@ -45,7 +45,7 @@ namespace HRSystem.Models
         [DataType(DataType.Date)]
         public DateTime? DOB { get; set; }
 
-        
+
         //EF relationships
         public virtual Address? Address { get; set; }
 

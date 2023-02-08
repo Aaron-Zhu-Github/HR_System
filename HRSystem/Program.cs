@@ -3,6 +3,7 @@ using System.Text;
 using HRSystem.DAO;
 using HRSystem.Middleware;
 using HRSystem.Models;
+using HRSystem.Services;
 using HRSystem.Util;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ builder.Services.AddTransient<PersonInfoDAO>();
 builder.Services.AddTransient<HouseDAO>();
 builder.Services.AddDbContext<HRDbContext>();
 builder.Services.AddTransient<OnBoardingDAO>();
+builder.Services.AddTransient<PersonInfoService>();
 
 
 builder.Services.AddSwaggerGen();

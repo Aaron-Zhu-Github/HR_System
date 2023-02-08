@@ -10,7 +10,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'AuthService' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
@@ -47,6 +46,7 @@
     <None Remove="Microsoft.Extensions.Logging" />
     <None Remove="DTO\" />
 
+    <None Remove="Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +76,10 @@
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\NameSec.cs" />
+    <Compile Include="DTO\AddressSec.cs" />
+    <Compile Include="DTO\EmergencyContactSec.cs" />
+    <Compile Include="DTO\PersonalDocSec.cs" />
     <Compile Include="DTO\HouseDetail.cs" />
     <Compile Include="DTO\CreateFacilityReport.cs" />
     <Compile Include="DTO\CreateFacilityDetail.cs" />
