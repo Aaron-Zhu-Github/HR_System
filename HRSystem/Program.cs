@@ -49,25 +49,35 @@ builder.Services.AddTransient<IJwtUtils, JWTTokenUtil>();
 builder.Services.AddSingleton<JwtMiddleware>();
 builder.Services.AddSingleton<ExceptionMiddleware>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+
 WebApplication app = builder.Build();
 
 
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    _ = app.UseHsts();
-}
-else
+if (app.Environment.IsDevelopment())
 {
     _ = app.UseSwagger();
     _ = app.UseSwaggerUI();
+}
+else
+{
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseCors("AllowLocalhost");
 
 //app.UseMiddleware<JwtMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
@@ -81,5 +91,6 @@ app.MapControllerRoute(
 app.MapControllers();
 
 app.MapFallbackToFile("index.html");
+;
 
 app.Run();
