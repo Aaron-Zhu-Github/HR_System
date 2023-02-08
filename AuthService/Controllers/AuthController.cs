@@ -22,19 +22,19 @@
             _jwtUtils = jwtUtils;
         }
 
-        [HttpPost("/Login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        [HttpPost("/api/Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return Unauthorized();
             }
 
-            User? user = _authDbContext.User.Include(u => u.UserRole)
+            User? user = await _authDbContext.User.Include(u => u.UserRole)
                                             .ThenInclude(ur => ur.Role)
                                             .ThenInclude(r => r.RolePermission)
                                             .ThenInclude(rp => rp.Permission)
-                                            .FirstOrDefault(u => u.Username == request.Username && u.Password == request.Password);
+                                            .FirstOrDefaultAsync(u => u.Username == request.Username && u.Password == request.Password);
 
             // Validate the username and password
             if (user is not null)

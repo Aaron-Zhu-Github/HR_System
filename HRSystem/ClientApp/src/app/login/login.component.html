@@ -1,0 +1,13 @@
+<p>login works!</p>
+
+<div class="form-group">
+    <form [formGroup]="loginForm">
+    <label for="username">UserName</label>
+    <input id="username" class="form-control" type="text" formControlName="username" placeholder="Please input your username">
+    <div class="form-group">
+      <label for="password">password</label>
+      <input type="password" class="form-control" formControlName="password" id="password" placeholder="Please enter your password">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+</form>
+</div>

@@ -1,6 +1,11 @@
 using System;
+using System.Text;
 using HRSystem.DAO;
+using HRSystem.Middleware;
 using HRSystem.Models;
+using HRSystem.Util;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +28,27 @@ builder.Services.AddLogging(loggingbuilder =>
     _ = loggingbuilder.AddDebug();
 });
 
+IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+
+builder.Services.AddSingleton<IConfiguration>(config);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetValue<string>("Jwt:Key")))
+            };
+        });
+
+builder.Services.AddTransient<IJwtUtils, JWTTokenUtil>();
+builder.Services.AddSingleton<JwtMiddleware>();
+builder.Services.AddSingleton<ExceptionMiddleware>();
+
 WebApplication app = builder.Build();
 
 
@@ -42,6 +68,11 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

@@ -1,10 +1,6 @@
-using System.Text;
 using AuthService.DAO;
-using AuthService.Middleware;
 using AuthService.Util;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -29,22 +25,32 @@ builder.Services.AddDbContext<AuthDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetValue<string>("Jwt:Key")))
-            };
-        });
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//        .AddJwtBearer(options =>
+//        {
+//            options.TokenValidationParameters = new TokenValidationParameters
+//            {
+//                ValidateIssuer = true,
+//                ValidateAudience = true,
+//                ValidateLifetime = true,
+//                ValidateIssuerSigningKey = true,
+//                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetValue<string>("Jwt:Key")))
+//            };
+//        });
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
 builder.Services.AddTransient<IJwtUtils, JWTTokenUtil>();
-builder.Services.AddSingleton<JwtMiddleware>();
-builder.Services.AddSingleton<ExceptionMiddleware>();
+//builder.Services.AddSingleton<JwtMiddleware>();
+//builder.Services.AddSingleton<ExceptionMiddleware>();
 
 WebApplication app = builder.Build();
 
@@ -54,12 +60,18 @@ if (app.Environment.IsDevelopment())
     _ = app.UseSwagger();
     _ = app.UseSwaggerUI();
 }
+else
+{
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
-app.UseRouting();
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseRouting();
+app.UseCors("AllowLocalhost");
+
+//app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
