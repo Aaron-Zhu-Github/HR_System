@@ -35,7 +35,6 @@ namespace HRSystem.Models
         public string? AlternatePhone { get; set; }
 
 
-        //Gender
         public string? Gender { get; set; }
 
 

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
 {
@@ -14,6 +15,8 @@ namespace HRSystem.Models
 
         public int EmployeeId { get; set; }
         //EF relationship
+        [ForeignKey("EmployeeId")]
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
 
 

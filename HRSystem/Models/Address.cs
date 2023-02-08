@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
 {
@@ -45,6 +46,7 @@ namespace HRSystem.Models
         public bool isSecondary { get; set; }
 
         [ForeignKey("PersonId")]
+        [JsonIgnore]
         public virtual Person? Person { get; set; }
     }
 }

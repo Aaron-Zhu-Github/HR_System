@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
 {
@@ -14,6 +15,8 @@ namespace HRSystem.Models
 
         public int PersonId { get; set; }
         //EF relationship
+        [ForeignKey("PersonId")]
+        [JsonIgnore]
         public virtual Person? Person { get; set; }
 
 
@@ -37,6 +40,8 @@ namespace HRSystem.Models
         //[Required]
         public int ContactPersonId { get; set; }
         //EF relationship
+        [ForeignKey("ContactPersonId")]
+        [JsonIgnore]
         public virtual Person? ContactPerson { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace HRSystem.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     [Table("Employee")]
     public class Employee
@@ -17,6 +18,8 @@ namespace HRSystem.Models
 
         public int PersonId { get; set; }
         //EF relationship
+        [ForeignKey("PersonId")]
+        [JsonIgnore]
         public virtual Person? Person { get; set; }
 
 
@@ -74,7 +77,7 @@ namespace HRSystem.Models
         //EF realtionship
         public virtual ApplicationWorkFlow? ApplicationWorkFlow { get; set; }
 
-        public virtual Person? Persons { get; set; }
+ //       public virtual Person? Persons { get; set; }
 
         public virtual House? House { get; set; }
 
