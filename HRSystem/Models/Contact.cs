@@ -14,7 +14,7 @@ namespace HRSystem.Models
 
         public int PersonId { get; set; }
         //EF relationship
-        public virtual Person Person { get; set; }
+        public virtual Person? Person { get; set; }
 
 
         [StringLength(20)]
@@ -22,7 +22,7 @@ namespace HRSystem.Models
 
 
         [StringLength(20)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
 
         public bool isReferrence { get; set; }
@@ -31,13 +31,13 @@ namespace HRSystem.Models
         public bool isEmergency { get; set; }
 
 
-        public bool isLandload { get; set; }
+        public bool isLandlord { get; set; }
 
 
         //[Required]
         public int ContactPersonId { get; set; }
         //EF relationship
-        public virtual Person ContactPerson { get; set; }
+        public virtual Person? ContactPerson { get; set; }
     }
 }
 

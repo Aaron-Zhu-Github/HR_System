@@ -19,9 +19,9 @@ namespace HRSystem.Models
         public bool Active { get; set; }
 
 
-        //[Required, DisplayName("Modification Date")]
+        [DisplayName("Modification Date")]
         [DataType(DataType.Date)]
-        public DateTime ModificationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
 
 
         [DisplayName("Create User")]
@@ -29,6 +29,6 @@ namespace HRSystem.Models
 
 
         //EF relationship
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
     }
 }

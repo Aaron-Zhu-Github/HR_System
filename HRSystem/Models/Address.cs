@@ -46,6 +46,6 @@ namespace HRSystem.Models
         public bool isSecondary { get; set; }
 
         [ForeignKey("PersonId")]
-        public virtual Person Person { get; set; }
+        public virtual Person? Person { get; set; }
     }
 }

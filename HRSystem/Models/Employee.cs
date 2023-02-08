@@ -7,6 +7,7 @@ namespace HRSystem.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Employee")]
     public class Employee
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,18 +17,18 @@ namespace HRSystem.Models
 
         public int PersonId { get; set; }
         //EF relationship
-        public virtual Person Person { get; set; }
+        public virtual Person? Person { get; set; }
 
 
         public string? Title { get; set; }
 
 
-        public int? ManagerId { get; set; }
+        public int ManagerId { get; set; }
 
 
-        [Required, DisplayName("Employment Start Date")]
+        [DisplayName("Employment Start Date")]
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
 
         [DisplayName("Employment End Date")]
@@ -39,12 +40,12 @@ namespace HRSystem.Models
 
 
         [StringLength(50)]
-        public string Car { get; set; }
+        public string? Car { get; set; }
 
 
         public int VisaStatusId { get; set; }
         //EF relationship
-        public virtual VisaStatus VisaStatus { get; set;}
+        public virtual VisaStatus? VisaStatus { get; set;}
 
 
         [DisplayName("Visa Start Date")]
@@ -71,8 +72,8 @@ namespace HRSystem.Models
 
 
         //EF realtionship
-        public virtual ApplicationWorkFlow ApplicationWorkFlow { get; set; }
+        public virtual ApplicationWorkFlow? ApplicationWorkFlow { get; set; }
 
-        public virtual ICollection<PersonalDocument> PersonalDocuments { get; set; }
+        public virtual ICollection<PersonalDocument>? PersonalDocuments { get; set; }
     }
 }

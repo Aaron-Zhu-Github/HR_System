@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HRSystem.Controllers
 {
     [ApiController]
-    [Route("apply")]
+    [Route("api/apply")]
     public class OnBoardingController:ControllerBase
     {
         private readonly OnBoardingDAO _onBoardingDAO;
@@ -48,16 +48,51 @@ namespace HRSystem.Controllers
             }
         }
 
+        //Sync Action test
         [HttpPost("Form")]
-        public async Task<IActionResult> AddApplication([FromBody] FormDataContainer formDataContainer) {
-            try {
-                await _onBoardingDAO.InsertForm(formDataContainer);
+        public IActionResult AddForm([FromBody] Person person)
+        {
+            //try
+            //{
+                _onBoardingDAO.InsertForm(person);
                 return Ok("Succeed");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //return BadRequest(ex.Message);
+            //}
+        }
+
+        //Async Action
+
+        //[HttpPost("Form")]
+        //public async Task<IActionResult> AddApplication([FromBody] FormDataContainer formDataContainer) {
+        //    try {
+        //        await _onBoardingDAO.InsertForm(formDataContainer);
+        //        return Ok("Succeed");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+        //Add a file
+        [HttpPost]
+        [Route("AddFileDetails")]
+        public IActionResult AddFile()
+        {
+            //string result = "";
+            //try
+            //{
+            //    PersonalDocument objFile = new PersonalDocument();
+            //    result = _onBoardingDAO.AddFile();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            return Ok();
         }
 
     }

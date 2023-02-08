@@ -17,6 +17,7 @@ namespace HRSystem.DAO
         protected override void OnConfiguring(DbContextOptionsBuilder option)
         {
             option.UseSqlServer(_configuration.GetConnectionString("Default"));
+            option.LogTo(Console.WriteLine);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -64,7 +65,7 @@ namespace HRSystem.DAO
             //one to many
             modelBuilder.Entity<Contact>()
             .HasOne(c => c.Person)
-            .WithMany(p => p.Contacts)
+            .WithMany(p => p.ContactList)
             .HasForeignKey(c => c.PersonId);
 
             modelBuilder.Entity<PersonalDocument>()

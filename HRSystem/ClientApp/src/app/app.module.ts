@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VisaStatusManagementComponent } from './visa-status-management/visa-status-management.component';
+import { OnBoardingInsertFormComponent } from './on-boarding-insert-form/on-boarding-insert-form.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 
@@ -20,7 +21,9 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+    OnBoardingInsertFormComponent
     LoginComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,7 +35,8 @@ import { LoginComponent } from './login/login.component';
       { path: 'home', component: HomeComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      {path: 'VisaStatus', component: VisaStatusManagementComponent}
+      {path: 'VisaStatus', component: VisaStatusManagementComponent},
+      { path: 'OnBoarding', component: OnBoardingInsertFormComponent}
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],

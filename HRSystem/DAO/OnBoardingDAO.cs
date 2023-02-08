@@ -12,34 +12,20 @@ namespace HRSystem.DAO
             _dbContext= dbContext;
         }
 
-
-        public async Task InsertForm(FormDataContainer formDataContainer) {
-           
-            using (IDbContextTransaction transaction = await _dbContext.Database.BeginTransactionAsync())
-            {
-                //try
-                //{
-                //    //Add person table info
-                //    //await _dbContext.Persons.AddAsync(formDataContainer.person);
-                //    //await _dbContext.SaveChangesAsync();
-                //    ////Add employee table info
-                //    //await _dbContext.Employees.AddAsync(formDataContainer.employee);
-                //    //await _dbContext.SaveChangesAsync();
-                //    //add contactlist to contact table
-
-                //    transaction.Commit();
-
-                //}
-                //catch (Exception ex)
-                //{
-                //    transaction.Rollback();
-                //    Console.WriteLine(ex.Message);
-                //}
-            }
-
+        public void InsertForm(Person person) {
+            _dbContext.Persons.Add(person);
+            _dbContext.SaveChanges();
         }
 
-        //test
+        //async method
+        //public async Task InsertFormAsync() {
+           
+        //    using (IDbContextTransaction transaction = await _dbContext.Database.BeginTransactionAsync())
+        //    {
+        //    }
+        //}
+
+        //test1
         public List<Person> GetAllPeople() {
             List<Person> people = new List<Person>();
 
@@ -48,12 +34,17 @@ namespace HRSystem.DAO
             return people;
         }
 
-        //test
+        //test2
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
             users = _dbContext.Users.ToList();
             return users;
+        }
+
+        public string AddFile() {
+            string res = "";
+            return res;
         }
         
     }

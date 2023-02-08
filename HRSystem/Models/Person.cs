@@ -14,25 +14,24 @@ namespace HRSystem.Models
         public int Id { get; set; }
 
 
-        public string Firstname { get; set; }
+        public string? Firstname { get; set; }
 
 
-        public string Lastname { get; set; }
+        public string? Lastname { get; set; }
 
 
-       // [Display(Name = "Middle Name")]
         public string? Middlename { get; set; }
 
 
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
 
         [DataType(DataType.PhoneNumber)]
         public string? CellPhone { get; set; }
 
 
-        //[DataType(DataType.PhoneNumber)]
+        [DataType(DataType.PhoneNumber)]
         public string? AlternatePhone { get; set; }
 
 
@@ -43,7 +42,6 @@ namespace HRSystem.Models
         public string? SSN { get; set; }
 
 
-        //[Required(ErrorMessage = "You must insert your date of birth")]
         [DataType(DataType.Date)]
         public DateTime? DOB { get; set; }
 
@@ -53,7 +51,7 @@ namespace HRSystem.Models
 
         public virtual Employee? Employee { get; set; }
 
-        public virtual ICollection<Contact>? Contacts { get; set; }//one person has many contacts
+        public virtual ICollection<Contact>? ContactList { get; set; }//one person has many contacts
 
         public virtual Contact? Contact { get; set; }//one contact has one contact person
 
