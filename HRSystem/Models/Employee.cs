@@ -74,6 +74,12 @@ namespace HRSystem.Models
         //EF realtionship
         public virtual ApplicationWorkFlow? ApplicationWorkFlow { get; set; }
 
+        public virtual Person? Persons { get; set; }
+
+        public virtual House? House { get; set; }
+
+        public virtual ICollection<FacilityReport>? FacilityReports { get; set; }
+
         public virtual ICollection<PersonalDocument>? PersonalDocuments { get; set; }
     }
 }

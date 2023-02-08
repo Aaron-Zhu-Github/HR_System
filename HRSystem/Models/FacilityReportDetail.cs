@@ -6,8 +6,11 @@ namespace HRSystem.Models
         public int ID { get; set; }
         public int ReportID { get; set; }
         public int EmployeeID { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime LastModificationDate { get; set; }
+        public string Comments { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? LastModificationDate { get; set; }
+
+        // EF Relationships
+        public virtual FacilityReport? FacilityReport { get; set; }
     }
 }

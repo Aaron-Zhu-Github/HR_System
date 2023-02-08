@@ -13,5 +13,11 @@ namespace HRSystem.Models
         public DateTime ReportDate { get; set; }
         //public int HouseID { get; set; }
         public string STATUS { get; set; }
+
+
+        // EF Relationships
+        public virtual Employee? Employee { get; set; }
+
+        public virtual ICollection<FacilityReportDetail>? FacilityReportDetails { get; set; }
     }
 }

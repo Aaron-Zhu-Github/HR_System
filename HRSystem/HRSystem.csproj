@@ -10,6 +10,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'AuthService' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
@@ -56,6 +57,7 @@
   <ItemGroup>
     <Folder Include="DAO\" />
 
+    <Folder Include="DTO\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +74,11 @@
     <None Include="ClientApp\tsconfig.spec.json" />
     <None Include="ClientApp\tsconfig.spec.json" />
     <None Include="wwwroot\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\HouseDetail.cs" />
+    <Compile Include="DTO\CreateFacilityReport.cs" />
+    <Compile Include="DTO\CreateFacilityDetail.cs" />
   </ItemGroup>
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

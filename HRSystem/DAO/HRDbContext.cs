@@ -2,6 +2,7 @@ using System;
 using System.Security;
 using Microsoft.EntityFrameworkCore;
 using HRSystem.Models;
+using HRSystem.DTO;
 
 namespace HRSystem.DAO
 {
@@ -84,10 +85,11 @@ namespace HRSystem.DAO
         public DbSet<DigitalDocument> DigitalDocuments { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
-        public virtual DbSet<Facility> Facilitys { get; set; }
+        public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<FacilityReport> FacilityReports { get; set; }
         public virtual DbSet<FacilityReportDetail> FacilityReportDetails { get; set; }
         public virtual DbSet<House> Houses { get; set; }
+        public virtual DbSet<HouseDetail> HouseDetails { get; set; }
 
         public DbSet<PersonalDocument> PersonalDocuments { get; set; }
         public DbSet<VisaStatus> VisaStatuses { get; set; }

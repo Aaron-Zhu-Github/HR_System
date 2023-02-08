@@ -58,6 +58,8 @@ namespace HRSystem.Models
         public string? PreferredName { get; set; }
 
         public string? WorkEmail { get; set; }
+
+        public virtual ICollection<House>? Houses { get; set; }  // one landlord can have many houses
     }
 }
 
