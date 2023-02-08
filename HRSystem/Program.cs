@@ -63,14 +63,15 @@ WebApplication app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    _ = app.UseSwagger();
-    _ = app.UseSwaggerUI();
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    _ = app.UseHsts();
 }
 else
 {
-    app.UseHsts();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -91,6 +92,5 @@ app.MapControllerRoute(
 app.MapControllers();
 
 app.MapFallbackToFile("index.html");
-;
 
 app.Run();
