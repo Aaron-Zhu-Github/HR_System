@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./person-info.component.css']
 })
 export class PersonInfoComponent implements OnInit {
+  pid:number = 3;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

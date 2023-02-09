@@ -1,0 +1,18 @@
+<h2>Emergency Contacts</h2>
+
+<div *ngFor="let item of emergencySec?.emergencyContacts; let i = index">
+    <ul>
+        <h5>Emergency Contact {{i+1}}</h5>
+        
+        <li>First Name: {{item.person.firstname}}</li>
+        <li>Last Name: {{item.person.lastname}}</li>
+        <li>Middle Name: {{item.person.middlename}}</li>
+        <li>Preferred Name: {{item.person.preferredName}}</li>
+        
+        <li>Address Line 1: {{item.address.addressLine1}}</li>
+        <li>Address Line 2: {{item.address.addressLine2}}</li>
+        <li>City: {{item.address.city}}</li>
+        <li>Zipcode: {{item.address.zipcode}}</li>
+        <li>State Name: {{item.address.stateName}}</li>
+    </ul>
+</div>

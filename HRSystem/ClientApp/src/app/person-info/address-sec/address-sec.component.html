@@ -1,1 +1,17 @@
-<p>address-sec works!</p>
+<h2>Address</h2>
+
+<div *ngFor="let address of addressSec?.addresses">
+<ul>
+    <h5 *ngIf="address.isSecondary">
+        Secondary Address
+    </h5>
+    <h5 *ngIf="!address.isSecondary">
+        Primary Address
+    </h5>
+    <li>Address Line 1: {{address.addressLine1}}</li>
+    <li>Address Line 2: {{address.addressLine2}}</li>
+    <li>City: {{address.city}}</li>
+    <li>Zipcode: {{address.zipcode}}</li>
+    <li>State Name: {{address.stateName}}</li>
+</ul>
+</div>

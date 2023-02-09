@@ -1,3 +1,12 @@
-<p>name-sec works!</p>
+<h2>Name</h2>
 
-<p>{{name_res.FirstName}}</p>
+<div *ngIf="nameSec?.person">
+<ul>
+    <li>First Name: {{nameSec.person.firstname}}</li>
+    <li>Last Name: {{nameSec.person.lastname}}</li>
+    <li>Middle Name: {{nameSec.person.middlename}}</li>
+    <li>Preferred Name: {{nameSec.person.preferredName}}</li>
+    <li>Gender: {{nameSec.person.gender}}</li>
+    <li>SSN: ****-**-{{ssn_last4}}</li>
+</ul>
+</div>

@@ -37,7 +37,6 @@ namespace HRSystem.Models
         public bool isLandlord { get; set; }
 
 
-        //[Required]
         public int ContactPersonId { get; set; }
         //EF relationship
         [ForeignKey("ContactPersonId")]

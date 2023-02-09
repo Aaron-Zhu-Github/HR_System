@@ -1,1 +1,8 @@
-<p>contact-sec works!</p>
+
+<h2>Contact Info</h2>
+<ul>
+    <li *ngIf="contactSec">Personal Email: {{contactSec.email}}</li>
+    <li *ngIf="contactSec">Work Email: {{contactSec.workEmail}}</li>
+    <li *ngIf="contactSec">Cell Phone: {{contactSec.cellPhone}}</li>
+    <li *ngIf="contactSec">Work Phone: {{contactSec.alternatePhone}}</li>
+</ul>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -7,27 +7,41 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./name-sec.component.css']
 })
 export class NameSecComponent implements OnInit {
-  public name_res!: NameSec;
+  public nameSec!: NameSec;
+  ssn_last4!:string;
+  @Input()
+  pid!: number;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<NameSec>(baseUrl + 'api/PersonalInformation/name/3').subscribe(result => {
-      this.name_res = result;
-      console.log(this.name_res.FirstName);
-    }, error => console.error(error));
+  constructor(private http: HttpClient) {
   }
 
 
   ngOnInit(): void {
+    this.getNameSec(this.pid);
+  }
+
+  getNameSec(pid:number){
+    console.log(this.pid);
+    this.http.get<NameSec>('https://localhost:5401/api/PersonalInformation/name/'+ pid.toString()).subscribe(data => {
+      this.nameSec = data;
+      this.ssn_last4 = this.nameSec?.person.ssn.substring(this.nameSec?.person.ssn.length-4);
+    },
+    error => console.error(error));
   }
 }
 
-interface NameSec {
-    FirstName: string;
-    LastName: string;
-    MiddleName: string;
-    PreferredName: string;
-    DOB: string; // 
-    Gender: string;
-    SSN: string;
+interface Person {
+    firstname: string;
+    lastname: string;
+    middlename: string;
+    preferredName: string;
+    dob: string; // 
+    gender: string;
+    ssn: string;
 }
+
+interface NameSec {
+  person: Person;
+}
+
 

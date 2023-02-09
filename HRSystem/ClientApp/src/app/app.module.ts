@@ -18,6 +18,8 @@ import { EmploymentSecComponent } from './person-info/employment-sec/employment-
 import { OnBoardingInsertFormComponent } from './on-boarding-insert-form/on-boarding-insert-form.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
+import { EmergencySecComponent } from './person-info/emergency-sec/emergency-sec.component';
+import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { LoginComponent } from './login/login.component';
     EmploymentSecComponent,
     OnBoardingInsertFormComponent,
     LoginComponent,
+    EmergencySecComponent,
+    DocSecComponent,
 
   ],
   imports: [
