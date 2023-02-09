@@ -1,7 +1,10 @@
 ﻿namespace AuthService.Model
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class UserRole
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int UserId { get; set; }

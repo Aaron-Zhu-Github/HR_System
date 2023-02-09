@@ -28,7 +28,7 @@ namespace HRSystem.Models
 
 
         //[Required, DisplayName("Application Status")]
-        public bool Status { get; set; }
+        public string? Status { get; set; }
 
 
         [StringLength(500, ErrorMessage = "Please write down less than 500 letters")]

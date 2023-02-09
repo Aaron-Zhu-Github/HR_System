@@ -56,8 +56,6 @@
 
   <ItemGroup>
     <Folder Include="DAO\" />
-
-    <Folder Include="DTO\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,6 +81,7 @@
     <Compile Include="DTO\HouseDetail.cs" />
     <Compile Include="DTO\CreateFacilityReport.cs" />
     <Compile Include="DTO\CreateFacilityDetail.cs" />
+    <Compile Include="DTO\StatusResponse.cs" />
   </ItemGroup>
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

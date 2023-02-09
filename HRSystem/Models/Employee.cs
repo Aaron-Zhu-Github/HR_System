@@ -17,6 +17,7 @@ namespace HRSystem.Models
 
 
         public int PersonId { get; set; }
+        
         //EF relationship
         [ForeignKey("PersonId")]
         [JsonIgnore]

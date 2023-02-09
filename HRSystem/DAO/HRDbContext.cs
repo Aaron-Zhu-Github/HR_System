@@ -29,6 +29,7 @@ namespace HRSystem.DAO
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<Address>().ToTable("Address");
 
+            modelBuilder.Entity<RegistrationToken>().ToTable("RegistrationToken");
             modelBuilder.Entity<Employee>().ToTable("Employee");
             modelBuilder.Entity<Facility>().ToTable("Facility");
             modelBuilder.Entity<FacilityReport>().ToTable("FacilityReport");
@@ -85,6 +86,8 @@ namespace HRSystem.DAO
         public DbSet<PersonalDocument> PersonalDocuments { get; set; }
         public DbSet<ApplicationWorkFlow> ApplicationWorkFlows { get; set; }
         public DbSet<DigitalDocument> DigitalDocuments { get; set; }
+
+        public DbSet<RegistrationToken> RegistrationTokens { get; set; }
 
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<FacilityReport> FacilityReports { get; set; }

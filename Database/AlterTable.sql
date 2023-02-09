@@ -31,3 +31,5 @@ ADD CONSTRAINT FK_PersonalDocument_CreatedBy
 FOREIGN KEY (CreatedBy) REFERENCES [dbo].[Person](ID);
 
 EXEC sp_RENAME 'VisaStatus.Actice', 'Active', 'COLUMN'
+
+EXEC sp_RENAME 'Employee.PersonID', 'PersonId', 'COLUMN'

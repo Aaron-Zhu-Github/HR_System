@@ -310,8 +310,8 @@ GO
 -- Create the table in the specified schema
 CREATE TABLE FacilityReportDetail (
     ID INT PRIMARY KEY IDENTITY(1,1),
-    ReportID INT NOT NULL FOREIGN KEY REFERENCES FacilityReport(ReportID),
-    EmployeeID INT NOT NULL FOREIGN KEY REFERENCES Employee(EmployeeID),
+    ReportID INT NOT NULL FOREIGN KEY REFERENCES FacilityReport(ID),
+    EmployeeID INT NOT NULL FOREIGN KEY REFERENCES Employee(ID),
     Comments NVARCHAR(MAX) NULL,
     CreatedDate DATETIME NOT NULL DEFAULT GETDATE(),
     LastModificationDate DATETIME NOT NULL DEFAULT GETDATE()

@@ -30,7 +30,7 @@
                 ExceptionResponse exceptionResponse = new()
                 {
                     StatusCode = statusCode,
-                    Message = "No Token",
+                    Message = ex.Message,
                 };
 
                 await response.WriteAsync(exceptionResponse.ToString());

@@ -82,7 +82,7 @@ app.UseRouting();
 
 app.UseCors("AllowLocalhost");
 
-//app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

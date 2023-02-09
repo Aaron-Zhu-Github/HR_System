@@ -18,6 +18,9 @@ import { EmploymentSecComponent } from './person-info/employment-sec/employment-
 import { OnBoardingInsertFormComponent } from './on-boarding-insert-form/on-boarding-insert-form.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
+import { HireComponent } from './hire/hire.component';
+import { AuthGuard, LoginGuard, RoleGuard } from './shared/auth.guard';
+import { RegisterComponent } from './register/register.component';
 import { EmergencySecComponent } from './person-info/emergency-sec/emergency-sec.component';
 import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
 
@@ -35,9 +38,10 @@ import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
     EmploymentSecComponent,
     OnBoardingInsertFormComponent,
     LoginComponent,
+    HireComponent,
+    RegisterComponent,
     EmergencySecComponent,
     DocSecComponent,
-
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,13 +49,16 @@ import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      {path: 'VisaStatus', component: VisaStatusManagementComponent},
-      {path: 'PersonalInformation', component: PersonInfoComponent},
-      { path: 'OnBoarding', component: OnBoardingInsertFormComponent},
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },
+      // { path: 'counter', component: CounterComponent },
+      // { path: 'fetch-data', component: FetchDataComponent },
+      {path: 'VisaStatus', component: VisaStatusManagementComponent, canActivate: [AuthGuard]},
+      {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard]},
+      { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard]},
+      { path: 'Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },
+      { path: 'Register', component: RegisterComponent},
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],

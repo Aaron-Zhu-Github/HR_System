@@ -3,6 +3,7 @@ import { emptyValidator } from 'src/app/empty.validator';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private authService:AuthService,private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   loginForm!: FormGroup;
 
@@ -33,7 +34,14 @@ export class LoginComponent implements OnInit {
         (res)=>{
           console.log(res.message);
           localStorage.setItem('token', res.accessToken)
+          this.authService.login();
+          console.log(res.role);
+          this.authService.setRole(res.role);
           this.router.navigate(['/home']);
+        },
+        (error) => {
+          alert("Login Failed, please check your username and password.")
+          console.error(error);
         }
       )
   }
@@ -42,4 +50,5 @@ export class LoginComponent implements OnInit {
 interface TokenResponse {
   message:string;
   accessToken: string;
+  role:string;
 }

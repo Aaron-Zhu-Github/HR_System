@@ -1,4 +1,5 @@
 using AuthService.DAO;
+using AuthService.Middleware;
 using AuthService.Util;
 using Microsoft.EntityFrameworkCore;
 
