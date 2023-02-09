@@ -33,36 +33,46 @@
           </ul>
 
         <ng-container *ngIf="isLoggedIn">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
+          <ul class="navbar-nav flex-grow">
+            <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+              <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            </li>
+            <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
           </li> 
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
           </li> -->
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/VisaStatus']">VisaStatus</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/PersonalInformation']">Personal Information</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/OnBoarding']">OnBoarding</a>
-          </li>
-          <ng-container *ngIf="role=='HR'">
+            <ng-container *ngIf="role=='Employee' && status == 'Approved'">
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/VisaStatus']">VisaStatus</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/PersonalInformation']">Personal Information</a>
+              </li>
+              <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/OnBoarding']">OnBoarding</a>
+              </li> -->
+            </ng-container>
+            <ng-container *ngIf="role=='HR'">
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/HR/EmployeeProfile']">Employee Profile</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/HR/VisaStatusManagement']">Visa Status Management</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/HR/Hire']">Hire</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/HR/HouseManagement']">Houses Management</a>
+              </li>
+            </ng-container>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/Hire']">Hire</a>
+              <button class="btn btn-danger" (click)="logout()">Logout</button>
             </li>
-          </ng-container>          
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <button class="btn btn-danger" (click)="logout()">Logout</button>
-          </li>
-        </ul>
-      </ng-container>
-
+          </ul>
+        </ng-container>
       </div>
     </div>
   </nav>

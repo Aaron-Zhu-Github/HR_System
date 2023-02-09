@@ -26,6 +26,11 @@ import { AuthGuard, LoginGuard, RoleGuard } from './shared/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { EmergencySecComponent } from './person-info/emergency-sec/emergency-sec.component';
 import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
+import { ApprovedStatusGuard, NotSubmittedStatusGuard } from './shared/status.guard';
+import { VisaStatusGuard } from './shared/visa-status.guard';
+import { HREmployeeProfileComponent } from './hremployee-profile/hremployee-profile.component';
+import { HRVisaStatusManagementComponent } from './hrvisa-status-management/hrvisa-status-management.component';
+import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-management.component';
 
 
 @NgModule({
@@ -73,10 +78,13 @@ import { DocSecComponent } from './person-info/doc-sec/doc-sec.component';
       { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },
       // { path: 'counter', component: CounterComponent },
       // { path: 'fetch-data', component: FetchDataComponent },
-      {path: 'VisaStatus', component: VisaStatusManagementComponent, canActivate: [AuthGuard]},
-      {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard]},
-      { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard]},
-      { path: 'Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },
+      {path: 'VisaStatus', component: VisaStatusManagementComponent, canActivate: [AuthGuard,ApprovedStatusGuard,VisaStatusGuard]},
+      {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard,ApprovedStatusGuard]},
+      { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
+      { path: 'HR/Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },
+      { path: 'HR/EmployeeProfile', component: HREmployeeProfileComponent, canActivate: [AuthGuard,RoleGuard] },
+      { path: 'HR/VisaStatusManagement', component: HRVisaStatusManagementComponent, canActivate: [AuthGuard,RoleGuard] },
+      { path: 'HR/HouseManagement', component: HRHouseManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'Register', component: RegisterComponent},
 
     ])

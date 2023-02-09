@@ -24,24 +24,29 @@
         {
             var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var role = User.FindFirstValue("Role");
+
+            if(role == "HR")
+                return Ok(new StatusResponse() { Status = "HRStatus" });
+
             var employee = await _dbContext.Employees.Where(e=>e.PersonId== personId).FirstOrDefaultAsync();
             if(employee == null || employee.Id == 0)
             {
-                return Ok(new StatusResponse() { Status = "NotSubmitted" });
+                return Ok(new StatusResponse() { Status = "Open" });
             }
-            var applicationWorkFlow= await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id);
+            var applicationWorkFlow= await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id && a.Type== "Onboarding");
             if(applicationWorkFlow == null)
             {
                 _dbContext.ApplicationWorkFlows.Add(new Models.ApplicationWorkFlow()
                 {
                     EmployeeId = employee.Id,
                     CreatedDate= DateTime.Now,
-                    Status= "NotSubmitted",
+                    Status= "Open",
+                    Type= "Onboarding"
                 });
 
-                return Ok(new StatusResponse() { Status = "NotSubmitted" });
+                return Ok(new StatusResponse() { Status = "Open" });
             }
-            return Ok(new StatusResponse() { Status = applicationWorkFlow?.Status??"NotSubmitted"});
+            return Ok(new StatusResponse() { Status = applicationWorkFlow?.Status?? "Open" });
         }
     }
 }

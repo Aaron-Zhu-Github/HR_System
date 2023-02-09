@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
+import { StatusService } from '../shared/status.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,10 +9,11 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService, private statusService:StatusService){}
   isExpanded = false;
   isLoggedIn: boolean = false;
-  role:string = '';
+  role!:string;
+  status!:string;
   ngOnInit() {
     this.authService.isLoggedIn().subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
@@ -19,6 +21,11 @@ export class NavMenuComponent {
     this.authService.getRole().subscribe(role => {
       // console.log('nav role update');
       this.role = role;
+    });
+    this.statusService.getStatus().subscribe(status => {
+      // console.log('nav role update');
+      this.status = status;
+      console.log('nav'+status);
     });
   }
 

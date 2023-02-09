@@ -41,4 +41,23 @@ INSERT INTO [RolePermission] (ID, RoleID, PermissionID, ActiveFlag, CreateDate, 
 VALUES (2, 2, 2, 1, '2022-01-01 10:00:00', '2022-01-02 10:00:00', 999);
 SET IDENTITY_INSERT [RolePermission] OFF
 
+--add for employee test
+INSERT INTO [User] (UserName, Email, Password, PersonID, CreateDate, ModificationDate)
+VALUES ('employee', 'johndoe@example.com', '123', 1053, '2022-01-01 10:00:00', '2022-01-02 10:00:00');
+
+
+INSERT INTO [UserRole] (UserID, RoleID, ActiveFlag, CreateDate, ModificationDate, LastModificationUser)
+VALUES (1014, 2, 1, '2022-01-01 10:00:00', '2022-01-02 10:00:00', 999);
+
+-- Insert rows into table 'TableName'
+INSERT INTO ApplicationWorkFlow
+( -- columns to insert data into
+ [EmployeeID], [CreatedDate], [STATUS],[Type],[ModificationDate]
+)
+VALUES
+( -- first row: values for the columns in the list above
+ 8, GETDATE(), 'Approved','Onboarding', GETDATE()
+)
+-- add more rows here
+GO
 

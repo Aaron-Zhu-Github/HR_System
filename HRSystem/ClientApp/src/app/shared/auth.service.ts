@@ -9,15 +9,21 @@ export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private roleSubject = new BehaviorSubject<string>('');
 
-  constructor(private router:Router) {}
+  constructor(private router:Router) {
+    const storedValue = localStorage.getItem('isLoggedIn');
+    this.isAuthenticatedSubject.next(storedValue === 'true');
+  }
 
   login() {
+    localStorage.setItem('isLoggedIn', 'true');
     this.isAuthenticatedSubject.next(true);
   }
 
   logout() {
     // console.log('logout');
-    localStorage.removeItem('token')
+    // localStorage.removeItem('isLoggedIn');
+    // localStorage.removeItem('token')
+    localStorage.clear();
     this.setRole('');
     this.router.navigate(['/login']);
     this.isAuthenticatedSubject.next(false);

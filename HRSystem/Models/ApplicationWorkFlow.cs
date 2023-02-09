@@ -32,7 +32,7 @@ namespace HRSystem.Models
 
 
         [StringLength(500, ErrorMessage = "Please write down less than 500 letters")]
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
 
         [DisplayName("Application Type")]
