@@ -1,0 +1,24 @@
+<h1 id="tableLabel">House List</h1>
+
+<p>Find the house details of our company in the list below:</p>
+
+<p *ngIf="!houses"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="houses">
+    <thead>
+        <tr>
+            <th>HouseAddress</th>
+            <th>PreferredName</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let house of houses">
+            <td>{{ house.houseAddress }}</td>
+            <td>{{ house.preferredName}}</td>
+            <td>{{ house.phone }}</td>
+        </tr>
+    </tbody>
+</table>
+
+  

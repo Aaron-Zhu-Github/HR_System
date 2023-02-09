@@ -1,4 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 namespace HRSystem.Models
 {
     public class Facility
@@ -10,6 +15,8 @@ namespace HRSystem.Models
         public int HouseID { get; set; }
 
         // EF Relationships
+        [ForeignKey("HouseID")]
+        [JsonIgnore]
         public virtual House? House { get; set; }
     }
 }

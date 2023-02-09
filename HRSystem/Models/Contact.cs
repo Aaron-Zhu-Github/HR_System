@@ -42,6 +42,9 @@ namespace HRSystem.Models
         [ForeignKey("ContactPersonId")]
         [JsonIgnore]
         public virtual Person? ContactPerson { get; set; }
+
+        [InverseProperty("Contact")]
+        public virtual ICollection<House>? Houses { get; set; }  // one landlord can have many houses
     }
 }
 

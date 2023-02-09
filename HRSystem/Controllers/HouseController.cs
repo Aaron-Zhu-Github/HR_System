@@ -34,6 +34,29 @@ namespace HRSystem.Controllers
             return _houseDAO.viewHouseDetail();
         }
 
+        //[HR] Add House
+        [HttpPost("/addHouse")]
+        public ActionResult<House> createHouse([FromBody] House house)
+        {
+            _houseDAO.addHouse(house);
+            return Ok(house);
+        }
+
+        //[HR] Delete House
+        [HttpDelete("/deleteHouse/{id:int}")]
+        public ActionResult<House> deleteHouse([FromRoute] int id)
+        {
+            _houseDAO.removeHouse(id);
+            return Ok("House "+ id + " Removed");
+        }
+
+        // [HR] View House Detail
+        [HttpGet("/houseDetailHR")]
+        public List<HouseDetailHR> gethouseDetailHR()
+        {
+            return _houseDAO.viewHouseDetailHR();
+        }
+
         // Create Facility Report
         [HttpPost("/addReport")]
         public ActionResult<CreateFacilityReport> createReport([FromBody] CreateFacilityReport createFacilityReport)
@@ -42,11 +65,11 @@ namespace HRSystem.Controllers
             return Ok(createFacilityReport);
         }
 
-        // NA
+        // View History Report with Comments
         [HttpGet("/viewHistoryReport")]
         public List<FacilityReport> viewHistoryReport()
         {
-            return _dbContext.FacilityReports.ToList();
+            return _houseDAO.viewReport();
         }
 
         //Add Comments
@@ -60,18 +83,18 @@ namespace HRSystem.Controllers
         }
 
         //Edit Comments
-        [HttpGet("/editComment")]
+        [HttpGet("/editComment/{id:int}")]
         public ActionResult editComment([FromRoute] int id)
         {
             var result = _houseDAO.getComment().Where(c => c.ID == id).FirstOrDefault();
             return Ok(result);
         }
 
-        [HttpPost("/editComment")]
-        public ActionResult editComment([FromBody] FacilityReportDetail facilityReportDetail)
+        [HttpPatch("/editComment")]
+        public ActionResult editComment([FromBody] CreateFacilityDetail createFacilityDetail)
         {
-            _houseDAO.updateComment(facilityReportDetail);
-            return Ok(facilityReportDetail);
+            _houseDAO.updateComment(createFacilityDetail);
+            return Ok(createFacilityDetail);
         }
     }
 }

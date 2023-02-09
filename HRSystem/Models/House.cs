@@ -14,10 +14,16 @@ namespace HRSystem.Models
         public int NumberOfPerson { get; set; }
 
         // EF relationships
+        [InverseProperty("House")]
+        [JsonIgnore]
         public virtual ICollection<Employee>? Employees { get; set; }
 
-        public virtual Person? Person { get; set; }  // Landlord
+        [ForeignKey("ContactID")]
+        [JsonIgnore]
+        public virtual Contact? Contact { get; set; }  // Landlord
 
+        [InverseProperty("House")]
+        [JsonIgnore]
         public virtual ICollection<Facility>? Facilities { get; set; }
     }
 }

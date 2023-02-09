@@ -2,6 +2,9 @@
 using HRSystem.Models;
 using HRSystem.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HRSystem.DAO
 {
@@ -28,6 +31,38 @@ namespace HRSystem.DAO
             return set;
         }
 
+       
+        public List<HouseDetailHR> viewHouseDetailHR()
+        {
+            var set = (from House in _dbContext.Houses
+                       join Contact in _dbContext.Contacts on House.ContactID equals Contact.Id
+                       join Person in _dbContext.Persons on Contact.PersonId equals Person.Id
+                       select new HouseDetailHR
+                       {
+                           HouseAddress = House.Address,
+                           Landlord = Person.Firstname,
+                           Phone = Person.CellPhone,
+                           Email = Person.Email,
+                           NumberOfEmployee = House.NumberOfPerson
+                       }).ToList();
+            return set;
+        }
+
+
+        public void addHouse(House house)
+        {
+            _dbContext.Houses.Add(house);
+            _dbContext.SaveChanges();
+        }
+
+        public void removeHouse(int id)
+        {
+            House house = _dbContext.Houses.FirstOrDefault(c => c.ID == id);
+
+            _dbContext.Houses.Remove(house);
+            _dbContext.SaveChanges();
+        }
+
 
         public void sendReport(CreateFacilityReport createFacilityReport)
         {
@@ -42,7 +77,30 @@ namespace HRSystem.DAO
             _dbContext.SaveChanges();
         }
 
-        //Error:Invalid column name 'FacilityReportID'
+        //
+        public List<FacilityReport> viewReport()
+        {
+            var result = _dbContext.FacilityReports
+                    .Include(d => d.FacilityReportDetails)
+                    .ToList();
+            return result ;
+
+
+            //var result = (from FacilityReport in _dbContext.FacilityReports.Include(d => d.FacilityReportDetails)
+            //              join Employee in _dbContext.Employees on Employee.ID equals FacilityReport.EmployeeID
+            //              join Person in _dbContext.Persons on Person.ID
+            //              select new FacilityReportDetail
+            //              {
+            //                  Comments = FacilityReportDetail.Comments,
+            //                  EmployeeID = FacilityReportDetail.EmployeeID,
+            //                  LastModificationDate = FacilityReportDetail.LastModificationDate
+            //              }).ToList();
+            //return result;
+        }
+
+        
+
+
         public void addComment(CreateFacilityDetail createFacilityDetail)
         {
             FacilityReportDetail facilityReportDetail = new FacilityReportDetail();
@@ -52,6 +110,8 @@ namespace HRSystem.DAO
             facilityReportDetail.EmployeeID = createFacilityDetail.EmployeeID;
             facilityReportDetail.CreatedDate = DateTime.Now;
             facilityReportDetail.LastModificationDate = DateTime.Now;
+
+
 
             _dbContext.FacilityReportDetails.Add(facilityReportDetail);
             _dbContext.SaveChanges();
@@ -64,11 +124,17 @@ namespace HRSystem.DAO
         }
 
 
-        public void updateComment(FacilityReportDetail facilityReportDetail)
+        public void updateComment(CreateFacilityDetail createFacilityDetail)
         {
+            FacilityReportDetail facilityReportDetail = getComment().Where(c => c.ID == createFacilityDetail.ID).FirstOrDefault();
+
+            facilityReportDetail.Comments = createFacilityDetail.Comments;
+            facilityReportDetail.LastModificationDate = DateTime.Now;
 
             _dbContext.FacilityReportDetails.Update(facilityReportDetail);
             _dbContext.SaveChanges();
         }
+
+
     }
 }

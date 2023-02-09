@@ -1,12 +1,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HRSystem.Models
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Text.Json.Serialization;
 
     [Table("Employee")]
     public class Employee
@@ -80,8 +78,11 @@ namespace HRSystem.Models
 
         //       public virtual Person? Persons { get; set; }
 
+        [ForeignKey("HouseId")]
+        [JsonIgnore]
         public virtual House? House { get; set; }
 
+        [InverseProperty("Employee")]
         public virtual ICollection<FacilityReport>? FacilityReports { get; set; }
 
         public virtual ICollection<PersonalDocument>? PersonalDocuments { get; set; }
