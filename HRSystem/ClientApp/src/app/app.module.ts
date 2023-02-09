@@ -47,10 +47,10 @@ import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-managem
     EmploymentSecComponent,
     OnBoardingInsertFormComponent,
     LoginComponent,
-
-    HouseComponent
-
-
+    HouseComponent,
+    HREmployeeProfileComponent,
+    HRHouseManagementComponent,
+    HRVisaStatusManagementComponent,
     HireComponent,
     RegisterComponent,
     EmergencySecComponent,
