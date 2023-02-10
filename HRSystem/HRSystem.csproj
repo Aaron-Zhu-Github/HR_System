@@ -80,6 +80,7 @@
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CommentRequest.cs" />
     <Compile Include="DTO\NameSec.cs" />
     <Compile Include="DTO\AddressSec.cs" />
     <Compile Include="DTO\EmergencyContactSec.cs" />

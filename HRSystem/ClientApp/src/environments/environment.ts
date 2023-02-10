@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   API_URL: 'https://localhost:5401/',
   AuthURL: 'http://localhost:5000/',
+  FileURL: 'https://hrfiles2023.blob.core.windows.net/hrsystemfile/',
 };
 
 /*

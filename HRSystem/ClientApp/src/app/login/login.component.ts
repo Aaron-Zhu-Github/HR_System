@@ -35,17 +35,17 @@ export class LoginComponent implements OnInit {
     this.http.post<TokenResponse>('http://localhost:5000/api/Login', loginData)
     .pipe(
       switchMap((res) => {
-        console.log(res.message);
+        // console.log(res.message);
         localStorage.setItem('token', res.accessToken)
         this.authService.login();
-        console.log(res.role);
+        // console.log(res.role);
         this.authService.setRole(res.role);
         return this.http.get<statusResponse>(environment.API_URL + 'api/GetStatus');
       })
     )
     .subscribe(
       (res) => {
-        console.log(res.status);
+        // console.log(res.status);
         this.statusService.setStatus(res.status);
         if (res.status == 'Open') {
           this.router.navigate(['/OnBoarding'])

@@ -19,7 +19,7 @@
             _logger = logger;
         }
 
-        [Route("/api/Hire")]
+        [HttpPost("/api/Hire")]
         public async Task<ActionResult> Hire(string email)
         {
             var registerToken = _dbContext.RegistrationTokens.Where(r=>r.Email.Equals(email)).OrderByDescending(r=>r.ID).FirstOrDefault();

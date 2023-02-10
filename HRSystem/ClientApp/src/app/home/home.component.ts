@@ -19,7 +19,7 @@ export class HomeComponent {
         this.router.navigate(['/OnBoarding']);
       }
       this.status = res;
-      console.log(this.status);
+      // console.log(this.status);
     });
   }
 

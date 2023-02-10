@@ -25,7 +25,7 @@ export class NavMenuComponent {
     this.statusService.getStatus().subscribe(status => {
       // console.log('nav role update');
       this.status = status;
-      console.log('nav'+status);
+      // console.log('nav'+status);
     });
   }
 

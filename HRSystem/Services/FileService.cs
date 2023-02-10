@@ -14,16 +14,16 @@
 
         public async Task Upload(FileModel fileModel)
         {
-            var blobContainer = _blobServiceClient.GetBlobContainerClient("mycontainer");
+            var blobContainer = _blobServiceClient.GetBlobContainerClient("hrsystemfile");
 
-            var blobClient = blobContainer.GetBlobClient(fileModel.ImageFile.FileName);
+            var blobClient = blobContainer.GetBlobClient(fileModel.File.FileName);
 
-            await blobClient.UploadAsync(fileModel.ImageFile.OpenReadStream());
+            await blobClient.UploadAsync(fileModel.File.OpenReadStream());
         }
 
         public async Task<Stream> Get(string imageName)
         {
-            var blobContainer = _blobServiceClient.GetBlobContainerClient("mycontainer");
+            var blobContainer = _blobServiceClient.GetBlobContainerClient("hrsystemfile");
 
             var blobClient = blobContainer.GetBlobClient(imageName);
             var downloadContent = await blobClient.DownloadAsync();

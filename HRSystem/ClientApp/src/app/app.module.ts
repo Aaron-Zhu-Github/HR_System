@@ -32,7 +32,10 @@ import { HREmployeeProfileComponent } from './hremployee-profile/hremployee-prof
 import { HRVisaStatusManagementComponent } from './hrvisa-status-management/hrvisa-status-management.component';
 import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-management.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-
+import { FileDownloadComponent } from './file-download/file-download.component';
+import { DocumentPreviewComponent } from './document-preview/document-preview.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FileReviewComponent } from './file-review/file-review.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,9 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     HRHouseManagementComponent,
     HRVisaStatusManagementComponent,
     FileUploadComponent,
-
+    FileDownloadComponent,
+    DocumentPreviewComponent, 
+    FileReviewComponent,   
     HireComponent,
     RegisterComponent,
     EmergencySecComponent,
@@ -69,6 +74,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate:[AuthGuard] },
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

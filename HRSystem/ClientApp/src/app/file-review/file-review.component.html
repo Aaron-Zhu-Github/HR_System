@@ -1,0 +1,17 @@
+<div class="card" *ngFor="let file of files | async as list">
+    <div class="row d-flex">
+        <div class="col-1">
+            <fa-icon [icon]="['far', 'file']"></fa-icon>
+        </div>
+        <div class="col-1">
+            <p class="h5">{{ file.title }}:</p>
+        </div>
+        <div class="col-4">
+            <app-document-preview [documentUrl]="fileUrl + file.path"></app-document-preview>
+        </div>
+        <div class="col-6 text-right">
+            <input type="text" [(ngModel)]="file.comment" name="comment" id="comment-{{file.title}}">
+            <button type="submit" (click)="onAddComment(file.title, file.comment)">Add Comment</button>
+        </div>
+    </div>
+</div>

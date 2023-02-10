@@ -19,7 +19,7 @@
             _dbContext = dbContext;
         }
 
-        [Route("/api/GetStatus")]
+        [HttpGet("/api/GetStatus")]
         public async Task<ActionResult> GetStatus()
         {
             var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));

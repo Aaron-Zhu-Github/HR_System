@@ -1,54 +1,150 @@
 ﻿namespace HRSystem.Controllers
 {
+    using System.Security.Claims;
+    using System.Transactions;
+    using HRSystem.DAO;
+    using HRSystem.DTO;
     using HRSystem.Models;
     using HRSystem.Services;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     [ApiController]
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
         private readonly IFileService _fileService;
-        public FileController(IFileService fileService)
+        private readonly HRDbContext _dbContext;
+
+        private readonly Dictionary<string, string> extensionToMediaType = new Dictionary<string, string>()
+        {
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".png", "image/png" },
+                { ".pdf", "application/pdf" },
+                { ".doc", "application/msword" },
+                { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+            };
+        public FileController(IFileService fileService, HRDbContext dbContext)
         {
             _fileService = fileService;
+            _dbContext = dbContext;
         }
+
+
 
         [Route("/api/file/upload")]
         [HttpPost]
         public async Task<IActionResult> Upload([FromForm] FileModel model)
         {
-            if (model.ImageFile != null)
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            if (employee == null || employee.Id == 0)
+            {
+                return BadRequest(new {message="fail to find employee"});
+            }
+            if(model.File is null || model.Title is null)
+            {
+                return BadRequest(new { message = "no file or file title" });
+            }
+
+            using(TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 await _fileService.Upload(model);
+                var personalDocument = await _dbContext.PersonalDocuments.FirstOrDefaultAsync(pd=>pd.EmployeeId==employee.Id && pd.Title==model.Title);
+                if(personalDocument != null)
+                {
+                    personalDocument.Path = model.File.FileName;
+                    _dbContext.PersonalDocuments.Update(personalDocument);
+                }
+                else
+                {
+                    await _dbContext.PersonalDocuments.AddAsync(
+                    new PersonalDocument()
+                    {
+                        EmployeeId = employee.Id,
+                        Path = model.File.FileName,
+                        Title = model.Title,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = 999
+                    });
+                }                
+                await _dbContext.SaveChangesAsync();
+                scope.Complete();
             }
-            return Ok();
+            return Ok(new {message="File uploaded"});
+        }
+
+        [HttpPost("/api/file/AddComment")]
+        public async Task<IActionResult> AddComment(CommentRequest commentRequest)
+        {
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            if (employee == null || employee.Id == 0)
+            {
+                return BadRequest(new { message = "fail to find employee" });
+            }
+            if (commentRequest.Comment is null || commentRequest.Title is null)
+            {
+                return BadRequest(new { message = "no comment or file title" });
+            }
+
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var personalDocument = await _dbContext.PersonalDocuments.FirstOrDefaultAsync(pd => pd.EmployeeId == employee.Id && pd.Title == commentRequest.Title);
+                if (personalDocument == null)
+                {
+                    return BadRequest(new { message = "file not found" });
+                }
+                personalDocument.Comment = commentRequest.Comment;
+                _dbContext.PersonalDocuments.Update(personalDocument);
+                await _dbContext.SaveChangesAsync();
+                scope.Complete();
+            }
+            return Ok(new { message = "Comment added" });
+        }
+
+        [HttpGet("/api/file/GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            if (employee == null || employee.Id == 0)
+            {
+                return BadRequest(new { message = "fail to find employee" });
+        }
+            var files = await _dbContext.PersonalDocuments.Where(pd=>pd.EmployeeId== employee.Id).Select(x=>new {Path = x.Path,Title = x.Title}).ToListAsync();
+            return Ok(files);
         }
 
         [Route("/api/file/get")]
         [HttpGet]
         public async Task<IActionResult> Get(string fileName)
         {
-            var imgStream = await _fileService.Get(fileName);
-            string fileType = "jpeg";
-            if (fileName.Contains("png"))
+            var fileStream = await _fileService.Get(fileName);
+            var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+
+            if (!extensionToMediaType.TryGetValue(fileExtension, out var mediaType))
             {
-                fileType = "png";
+                mediaType = "application/octet-stream";
             }
-            return File(imgStream, $"image/{fileType}");
+
+            return File(fileStream, mediaType);
         }
 
         [Route("/api/file/download")]
         [HttpGet]
         public async Task<IActionResult> GetDownload(string fileName)
         {
-            var imgStream = await _fileService.Get(fileName);
-            string fileType = "jpeg";
-            if (fileName.Contains("png"))
+            var fileStream = await _fileService.Get(fileName);
+            var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+
+            if (!extensionToMediaType.TryGetValue(fileExtension, out var mediaType))
             {
-                fileType = "png";
+                mediaType = "application/octet-stream";
             }
-            return File(imgStream, $"image/{fileType}", $"blobfile.{fileType}");
+
+            return File(fileStream, mediaType, fileName);
         }
     }
 }

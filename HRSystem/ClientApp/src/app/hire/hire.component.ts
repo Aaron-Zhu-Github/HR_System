@@ -22,9 +22,9 @@ export class HireComponent {
 
   onSubmit() {
     const email = this.tokenGenerateForm.value.email;
-    console.log(email);
+    // console.log(email);
     const endpoint = 'https://localhost:5401/api/Hire?email='+email;
-    console.log(endpoint);
+    // console.log(endpoint);
     this.http.post(endpoint,{})
       .subscribe(
         (response) => {

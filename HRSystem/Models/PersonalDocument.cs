@@ -29,7 +29,7 @@ namespace HRSystem.Models
 
 
         [StringLength(500)]
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
 
         [DisplayName("Created Date")]
