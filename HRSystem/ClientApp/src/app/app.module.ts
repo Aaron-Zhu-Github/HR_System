@@ -48,11 +48,16 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     EmploymentSecComponent,
     OnBoardingInsertFormComponent,
     LoginComponent,
+
+
+    HouseComponent,
+
     HouseComponent,
     HREmployeeProfileComponent,
     HRHouseManagementComponent,
     HRVisaStatusManagementComponent,
     FileUploadComponent,
+
     HireComponent,
     RegisterComponent,
     EmergencySecComponent,
