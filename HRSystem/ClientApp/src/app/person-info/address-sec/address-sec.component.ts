@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PersonInfoComponent } from '../person-info.component'; 
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-address-sec',
@@ -9,18 +10,93 @@ import { PersonInfoComponent } from '../person-info.component';
 })
 export class AddressSecComponent implements OnInit {
   addressSec!: AddressSec;
-  @Input() pid!: number;
+  public editMode = false;
+  public editForm!: FormGroup;
+  public addressForm!: FormGroup;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private formBuilder: FormBuilder) { 
+    // this.addressForm = this.formBuilder.group({
+    //   addressLine1: [''],
+    //   addressLine2:[''],
+    //   city: [''],
+    //   zipcode: [''],
+    //   stateName: [''],
+    //   stateAbbr: [''],
+    //   // isSecondary: [''] //click 
+    // });
 
-  ngOnInit(): void {
-    this.getAddressSec(this.pid);
+    this.editForm = this.formBuilder.group({
+      addressArray: this.formBuilder.array([])
+    });
+
   }
 
-  getAddressSec(pid: number) {
-    this.http.get<AddressSec>('https://localhost:5401/api/PersonalInformation/address/' + pid.toString()).subscribe(data => {
+  get addressFormGetter():FormArray {
+    return <FormArray> this.editForm.get('addressArray');
+  }
+
+  populateForm(){
+    for (let address of this.addressSec.addresses){
+      this.addressFormGetter.push(this.formBuilder.group({
+        id: [address.id],
+        addressLine1: [address.addressLine1],
+        addressLine2:[address.addressLine2],
+        city: [address.city],
+        zipcode: [address.zipcode],
+        stateName: [address.stateName],
+        stateAbbr: [address.stateAbbr],
+        personId: [address.personId],
+        isSecondary: [address.isSecondary]
+        }));
+    }
+  }
+
+  ngOnInit(): void {
+    this.getAddressSec();
+  }
+
+  getAddressSec() {
+    this.http.get<AddressSec>('https://localhost:5401/api/PersonalInformation/address').subscribe(data => {
       this.addressSec = data;
+      // this.populateForm();
+
     });
+  }
+
+
+  toggleEdit(){
+    this.editMode = !this.editMode;
+  }
+
+  cancelEdit() {
+    if (window.confirm('Are you sure you want to discard all your changes?')) {
+      this.toggleEdit();
+    }
+  }
+
+  onSubmit(){
+    // while (this.addressSec.addresses.length!=0){
+    //   this.addressSec.addresses.pop();
+    // }
+    let i = 0; 
+    for (let item of this.addressFormGetter.controls){
+      this.addressSec.addresses[i].addressLine1 = item.value.addressLine1;
+      this.addressSec.addresses[i].addressLine2 = item.value.addressLine2;
+      this.addressSec.addresses[i].city = item.value.city;
+      this.addressSec.addresses[i].stateName = item.value.stateName;
+      this.addressSec.addresses[i].zipcode = item.value.zipcode;
+      this.addressSec.addresses[i].stateAbbr = item.value.stateAbbr;
+      i += 1;
+    }
+
+    this.http.post<AddressSec>('https://localhost:5401/api/PersonalInformation/address', this.addressSec)
+    .subscribe(data => {
+      // this.nameSec = data;
+      // this.toggleEdit();
+      console.log(this.addressSec);
+      this.editMode = false;
+    },
+    error => console.error(error));
   }
 
 }

@@ -1,6 +1,6 @@
 <h2>Name</h2>
 
-<div *ngIf="nameSec?.person">
+<div *ngIf="!editMode && nameSec?.person">
 <ul>
     <li>First Name: {{nameSec.person.firstname}}</li>
     <li>Last Name: {{nameSec.person.lastname}}</li>
@@ -9,4 +9,43 @@
     <li>Gender: {{nameSec.person.gender}}</li>
     <li>SSN: ****-**-{{ssn_last4}}</li>
 </ul>
+<button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
 </div>
+
+
+<form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input type="text" formControlName="firstname" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input type="text" formControlName="lastname" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="middlename">Middle Name</label>
+      <input type="text" formControlName="middlename" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="preferredName">Preferred Name</label>
+      <input type="text" formControlName="preferredName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="text" formControlName="dob" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <input type="text" formControlName="gender" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="ssn">SSN</label>
+      <input type="text" formControlName="ssn" class="form-control">
+    </div>
+    
+    <button type="submit" [disabled]="!editForm.valid" class="btn btn-primary">Save</button>
+    <button type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+
+</form>
+  
+  

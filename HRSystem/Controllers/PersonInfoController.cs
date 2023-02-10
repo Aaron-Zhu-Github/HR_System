@@ -8,6 +8,7 @@ using HRSystem.Models;
 using HRSystem.Services;
 using HRSystem.DTO;
 using System.Security.Cryptography;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,9 +28,10 @@ namespace HRSystem.Controllers
         }
 
 
-        [HttpGet("name/{pid}")]
-        public ActionResult<NameSec> GetNameSec(int pid)
+        [HttpGet("name")]
+        public ActionResult<NameSec> GetNameSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetNameSec(pid);
             if (model != null)
                 return Ok(model);
@@ -37,9 +39,10 @@ namespace HRSystem.Controllers
                 return NoContent();
         }
 
-        [HttpGet("address/{pid}")]
-        public ActionResult<AddressSec> GetAddressSec(int pid)
+        [HttpGet("address")]
+        public ActionResult<AddressSec> GetAddressSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetAddressSec(pid);
             if (model != null)
                 return Ok(model);
@@ -47,9 +50,10 @@ namespace HRSystem.Controllers
                 return NoContent();
         }
 
-        [HttpGet("contact/{pid}")]
-        public ActionResult<Person> GetContactSec(int pid)
+        [HttpGet("contact")]
+        public ActionResult<Person> GetContactSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetContactSec(pid);
             if (model != null)
                 return Ok(model);
@@ -57,9 +61,10 @@ namespace HRSystem.Controllers
                 return NoContent();
         }
 
-        [HttpGet("employment/{pid}")]
-        public ActionResult<Employee> GetEmployeeSec(int pid)
+        [HttpGet("employment")]
+        public ActionResult<Employee> GetEmployeeSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetEmployeeSec(pid);
             if (model != null)
                 return Ok(model);
@@ -67,9 +72,10 @@ namespace HRSystem.Controllers
                 return NoContent();
         }
 
-        [HttpGet("emergencycontact/{pid}")]
-        public ActionResult<EmergencyContactSec> GetEmergencyContactSec(int pid)
+        [HttpGet("emergencycontact")]
+        public ActionResult<EmergencyContactSec> GetEmergencyContactSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetEmergencyContactSec(pid);
             if (model != null)
                 return Ok(model);
@@ -77,9 +83,10 @@ namespace HRSystem.Controllers
                 return NoContent();
         }
 
-        [HttpGet("document/{pid}")]
-        public ActionResult<PersonalDocSec> GetPersonalDocSec(int pid)
+        [HttpGet("document")]
+        public ActionResult<PersonalDocSec> GetPersonalDocSec()
         {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetPersonalDocSec(pid);
             if (model != null)
                 return Ok(model);
