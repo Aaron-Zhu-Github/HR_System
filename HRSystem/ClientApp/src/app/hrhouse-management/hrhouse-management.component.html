@@ -1,1 +1,27 @@
-<p>hrhouse-management works!</p>
+<h1 id="tableLabel">House List</h1>
+
+<p *ngIf="!hrhouses"><em>Loading...</em></p>
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th>House Address</th>
+            <th>Landlord</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Number of Employees</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let house of hrhouses">
+            <td>{{ house.houseAddress }}</td>
+            <td>{{ house.landlord }}</td>
+            <td>{{ house.phone }}</td>
+            <td>{{ house.email }}</td>
+            <td>{{ house.numberOfEmployee }}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+

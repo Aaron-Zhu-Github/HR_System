@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -7,20 +7,38 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './house.component.html',
   styleUrls: ['./house.component.css']
 })
+//export class HouseComponent implements OnInit {
+//  public houses: HouseDetail[] = [];
+
+
+//  constructor(private http: HttpClient) { }
+
+//  ngOnInit(): void {
+//    this.getHouse();
+//  }
+
+//  getHouse() {
+//    this.http.get<HouseDetail[]>('https://localhost:5401/houseDetail').subscribe(data => {
+//      this.houses = data;
+//    });
+//  }
+
+//}
+
 export class HouseComponent {
   public houses: HouseDetail[] = [];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<HouseDetail[]>(baseUrl + 'houseDetail').subscribe(result => {
-      this.houses = result;
+  constructor(private http: HttpClient) { 
+    http.get<HouseDetail[]>('https://localhost:5401/houseDetail').subscribe(data => {
+  this.houses = data;
     }, error => console.error(error));
   }
-
 }
 
 interface HouseDetail {
-  id: number;
+  id: number;//not show on page
   houseAddress: string;
   preferredName: string;
   phone: string;
 }
+

@@ -48,8 +48,7 @@ import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-managem
     OnBoardingInsertFormComponent,
     LoginComponent,
 
-    HouseComponent
-
+    HouseComponent,
 
     HireComponent,
     RegisterComponent,
