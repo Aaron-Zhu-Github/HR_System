@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,6 +13,11 @@ export class FileUploadComponent {
 
   constructor(private http: HttpClient) { }
   private selectedFile!: File;
+  componentId!: string;
+
+  ngOnInit(){
+    this.componentId = uuidv4();
+  }
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -31,7 +37,8 @@ export class FileUploadComponent {
           response => {
             console.log(response);
             alert("file uploaded");
-            (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
+            // (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
+            (document.querySelector("#"+this.componentId) as HTMLInputElement).value = "";
           },
           (err)=>{
             alert(err.error.message)

@@ -1,4 +1,5 @@
-<div>
-    <input type="file" (change)="onFileChange($event)">
+<div class="form-control">
+    <label>{{title}}:  </label>
+    <input type="file" (change)="onFileChange($event)" id="{{componentId}}">
     <button class="btn btn-primary" (click)="onClick()">Upload</button>
 </div>
