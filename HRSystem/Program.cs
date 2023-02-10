@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Azure.Storage.Blobs;
 using HRSystem.DAO;
 using HRSystem.Middleware;
 using HRSystem.Models;
@@ -21,6 +22,11 @@ builder.Services.AddDbContext<HRDbContext>();
 builder.Services.AddTransient<OnBoardingDAO>();
 builder.Services.AddTransient<PersonInfoService>();
 
+//add blobServiceClient
+builder.Services.AddScoped(_ =>
+{
+    return new BlobServiceClient(builder.Configuration.GetConnectionString("AzureStorage"));
+});
 
 builder.Services.AddSwaggerGen();
 
@@ -50,6 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddTransient<IJwtUtils, JWTTokenUtil>();
 builder.Services.AddSingleton<JwtMiddleware>();
 builder.Services.AddSingleton<ExceptionMiddleware>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddCors(options =>
 {
