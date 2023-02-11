@@ -38,7 +38,7 @@ namespace HRSystem.Models
         public DateTime? EndDate { get; set; }
 
 
-        //avatar
+        public string? Avatar { get; set; }
 
 
         [StringLength(50)]

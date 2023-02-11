@@ -24,10 +24,10 @@ export class FileReviewComponent {
     this.files = this.http.get<filesResponse[]>(environment.API_URL + "api/file/GetAll");
     this.files.subscribe(
       (res) => {
-        console.log("Response from API", res);
+        // console.log("Response from API", res);
         res.forEach(res => {
           res.fileExtension = this.getFileExtension(res.path);
-          console.log("File extension", res.fileExtension);
+          // console.log("File extension", res.fileExtension);
         }
         )
       },

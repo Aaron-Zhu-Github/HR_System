@@ -52,7 +52,7 @@ export class DocumentPreviewComponent {
         default:
           type = 'application/octet-stream';
       }
-      console.log(type);
+      // console.log(type);
       this.documentType = type;
     }
   }

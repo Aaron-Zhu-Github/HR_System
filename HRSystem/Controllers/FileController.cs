@@ -146,5 +146,46 @@
 
             return File(fileStream, mediaType, fileName);
         }
+
+        [Route("/api/avatar")]
+        [HttpGet]
+        public async Task<IActionResult> GetAvatar(string fileName)
+        {
+            var fileStream = await _fileService.Get(fileName);
+            var fileExtension = Path.GetExtension(fileName).ToLowerInvariant();
+
+            if (!extensionToMediaType.TryGetValue(fileExtension, out var mediaType))
+            {
+                mediaType = "application/octet-stream";
+            }
+
+            return File(fileStream, mediaType);
+        }
+
+        [Route("/api/avatar/upload")]
+        [HttpPost]
+        public async Task<IActionResult> UploadAvatar([FromForm] FileModel model)
+        {
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            
+            if (model.File is null)
+            {
+                return BadRequest(new { message = "no file or file title" });
+            }
+
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                await _fileService.Upload(model);
+                if (employee is not null && employee.Id != 0)
+                {
+                    employee.Avatar = model.File.FileName;
+                    _dbContext.Employees.Update(employee);
+                    await _dbContext.SaveChangesAsync();
+                }
+                scope.Complete();
+            }
+            return Ok(new { message = "Avatar uploaded" });
+        }
     }
 }

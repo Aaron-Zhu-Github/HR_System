@@ -28,4 +28,8 @@ export class HomeComponent {
       this.role = role;
     });   
   }
+
+  onAvatarPathEmitted(value:string){
+    console.log(value);
+  }
 }

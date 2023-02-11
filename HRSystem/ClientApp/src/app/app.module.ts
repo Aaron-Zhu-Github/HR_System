@@ -36,6 +36,7 @@ import { FileDownloadComponent } from './file-download/file-download.component';
 import { DocumentPreviewComponent } from './document-preview/document-preview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileReviewComponent } from './file-review/file-review.component';
+import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { FileReviewComponent } from './file-review/file-review.component';
     FileUploadComponent,
     FileDownloadComponent,
     DocumentPreviewComponent, 
-    FileReviewComponent,   
+    FileReviewComponent, 
+    AvatarUploadComponent,  
     HireComponent,
     RegisterComponent,
     EmergencySecComponent,
