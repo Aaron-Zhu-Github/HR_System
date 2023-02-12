@@ -13,17 +13,22 @@ namespace HRSystem.DAO
         }
 
         public void InsertForm(Person person) {
-            _dbContext.Persons.Add(person);
-            _dbContext.SaveChanges();
+
+            using var transaction = _dbContext.Database.BeginTransaction();
+
+            try
+            {
+                _dbContext.Persons.Add(person);
+                _dbContext.SaveChanges();
+
+                transaction.Commit();
+            }
+            catch (Exception ex) {
+                transaction.Rollback();
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        //async method
-        //public async Task InsertFormAsync() {
-           
-        //    using (IDbContextTransaction transaction = await _dbContext.Database.BeginTransactionAsync())
-        //    {
-        //    }
-        //}
 
         //test1
         public List<Person> GetAllPeople() {
@@ -42,10 +47,25 @@ namespace HRSystem.DAO
             return users;
         }
 
-        public string AddFile() {
-            string res = "";
-            return res;
+        public async Task<Person> GetPersonById(int personId) {
+            var person =  await _dbContext.Persons.FindAsync(personId);
+            return person;
+            
         }
-        
+
+        //public string GetLastName(int userid)
+        //{
+        //    var personId = _dbContext.Users.Where(u => u.Id == userid).Select(u => u.Person.Id).FirstOrDefault();
+        //    return _dbContext.Persons.Where(p => p.Id == personId).Select(p => p.Lastname).FirstOrDefault();
+
+        //}
+
+        //public string GetEmail(int userid)
+        //{
+        //    var personId = _dbContext.Users.Where(u => u.Id == userid).Select(u => u.Person.Id).FirstOrDefault();
+        //    return _dbContext.Persons.Where(p => p.Id == personId).Select(p => p.Email).FirstOrDefault();
+
+        //}
+
     }
 }

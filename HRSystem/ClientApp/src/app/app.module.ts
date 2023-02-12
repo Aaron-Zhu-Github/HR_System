@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -36,7 +40,9 @@ import { FileDownloadComponent } from './file-download/file-download.component';
 import { DocumentPreviewComponent } from './document-preview/document-preview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileReviewComponent } from './file-review/file-review.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
+
 
 @NgModule({
   declarations: [
@@ -76,6 +82,10 @@ import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
     FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate:[AuthGuard] },
@@ -92,7 +102,8 @@ import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
       { path: 'HR/VisaStatusManagement', component: HRVisaStatusManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/HouseManagement', component: HRHouseManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'Register', component: RegisterComponent},
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -1,11 +1,12 @@
 ﻿using HRSystem.DAO;
 using HRSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HRSystem.Controllers
 {
     [ApiController]
-    [Route("api/apply")]
+    [Route("api/[controller]")]
     public class OnBoardingController:ControllerBase
     {
         private readonly OnBoardingDAO _onBoardingDAO;
@@ -52,47 +53,22 @@ namespace HRSystem.Controllers
         [HttpPost("Form")]
         public IActionResult AddForm([FromBody] Person person)
         {
-            //try
-            //{
-                _onBoardingDAO.InsertForm(person);
-                return Ok("Succeed");
-            //}
-            //catch (Exception ex)
-            //{
-                //return BadRequest(ex.Message);
-            //}
+            _onBoardingDAO.InsertForm(person);
+            return Ok(new {message="Form insert succeed"});
         }
 
-        //Async Action
+        [HttpGet("GetInfo")]
+        public async Task<IActionResult> GetInfo() {
 
-        //[HttpPost("Form")]
-        //public async Task<IActionResult> AddApplication([FromBody] FormDataContainer formDataContainer) {
-        //    try {
-        //        await _onBoardingDAO.InsertForm(formDataContainer);
-        //        return Ok("Succeed");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
 
-        //Add a file
-        [HttpPost]
-        [Route("AddFileDetails")]
-        public IActionResult AddFile()
-        {
-            //string result = "";
-            //try
-            //{
-            //    PersonalDocument objFile = new PersonalDocument();
-            //    result = _onBoardingDAO.AddFile();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return Ok();
+            var person = await _onBoardingDAO.GetPersonById(personId);
+
+            if(person == null) {
+                return BadRequest(new {message="Person not found" });
+            }
+
+            return Ok (new {person.Firstname, person.Lastname, person.Email});
         }
 
     }
