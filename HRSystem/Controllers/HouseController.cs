@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using HRSystem.DTO;
+using System.Security.Claims;
 
 namespace HRSystem.Controllers
 {
@@ -61,18 +62,27 @@ namespace HRSystem.Controllers
         [HttpPost("/addReport")]
         public ActionResult<CreateFacilityReport> createReport([FromBody] CreateFacilityReport createFacilityReport)
         {
-            _houseDAO.sendReport(createFacilityReport);
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            _houseDAO.sendReport(createFacilityReport, pid);
             return Ok(createFacilityReport);
         }
 
-        // View History Report with Comments
+        // [HR] View History Report with Comments
         [HttpGet("/viewHistoryReport")]
         public List<FacilityReport> viewHistoryReport()
         {
             return _houseDAO.viewReport();
         }
 
-        //Add Comments
+        // View History Report by Employee ID
+        [HttpGet("/viewHistoryReportById")]
+        public List<FacilityReport> viewHistoryReportById()
+        {
+            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            return _houseDAO.viewReportById(pid);
+        }
+
+        //Add Comments by ReportID
         [HttpPost("/addComment")]
         public ActionResult createComment([FromBody] CreateFacilityDetail createFacilityDetail)
         {
@@ -82,14 +92,15 @@ namespace HRSystem.Controllers
             return Ok(createFacilityDetail);
         }
 
-        //Edit Comments
+        //View Comments by ReportID
         [HttpGet("/editComment/{id:int}")]
         public ActionResult editComment([FromRoute] int id)
         {
-            var result = _houseDAO.getComment().Where(c => c.ID == id).FirstOrDefault();
+            var result = _houseDAO.getComment().Where(c => c.ReportID == id).FirstOrDefault();
             return Ok(result);
         }
 
+        //Edit Comments
         [HttpPatch("/editComment")]
         public ActionResult editComment([FromBody] CreateFacilityDetail createFacilityDetail)
         {

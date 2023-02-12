@@ -25,6 +25,8 @@ import { LoginComponent } from './login/login.component';
 
 import { HouseComponent } from './house/house.component';
 
+
+
 import { HireComponent } from './hire/hire.component';
 import { AuthGuard, LoginGuard, RoleGuard } from './shared/auth.guard';
 import { RegisterComponent } from './register/register.component';
@@ -36,6 +38,7 @@ import { HREmployeeProfileComponent } from './hremployee-profile/hremployee-prof
 import { HRVisaStatusManagementComponent } from './hrvisa-status-management/hrvisa-status-management.component';
 import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-management.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { CommentComponent } from './house/comment/comment.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { DocumentPreviewComponent } from './document-preview/document-preview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -62,6 +65,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
     OnBoardingInsertFormComponent,
     LoginComponent,
     HouseComponent,
+    CommentComponent,
     HREmployeeProfileComponent,
     HRHouseManagementComponent,
     HRVisaStatusManagementComponent,
@@ -98,7 +102,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
       // { path: 'fetch-data', component: FetchDataComponent },
       {path: 'VisaStatus', component: VisaStatusManagementComponent, canActivate: [AuthGuard,ApprovedStatusGuard,VisaStatusGuard]},
       {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard,ApprovedStatusGuard]},
-      { path: 'House', component: HouseComponent, canActivate: [AuthGuard,ApprovedStatusGuard] },
+      { path: 'House', component: HouseComponent, canActivate: [AuthGuard, ApprovedStatusGuard] },
       { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'Documentation', component: DocumentationComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'HR/Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },

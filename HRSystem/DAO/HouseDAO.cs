@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace HRSystem.DAO
 {
@@ -64,7 +65,7 @@ namespace HRSystem.DAO
         }
 
 
-        public void sendReport(CreateFacilityReport createFacilityReport)
+        public void sendReport(CreateFacilityReport createFacilityReport, int pid)
         {
             // report：Title + Description
             FacilityReport facilityReport = new FacilityReport();
@@ -72,6 +73,16 @@ namespace HRSystem.DAO
             facilityReport.Title = createFacilityReport.Title;
             facilityReport.Description = createFacilityReport.Description;
             facilityReport.ReportDate = DateTime.Now;
+            facilityReport.STATUS = "Open";
+
+
+            int eid = (from Employee in _dbContext.Employees
+                       join Person in _dbContext.Persons on Employee.PersonId equals Person.Id
+                       where Person.Id == pid
+                       select Employee.Id).FirstOrDefault();
+
+            facilityReport.EmployeeID = eid;
+
 
             _dbContext.FacilityReports.Add(facilityReport);
             _dbContext.SaveChanges();
@@ -98,8 +109,28 @@ namespace HRSystem.DAO
             //return result;
         }
 
-        
 
+
+
+
+        public List<FacilityReport> viewReportById(int pid)
+        {
+            int eid = (from Employee in _dbContext.Employees
+                            join Person in _dbContext.Persons on Employee.PersonId equals Person.Id
+                            where Person.Id == pid
+                            select Employee.Id).FirstOrDefault();
+
+            var result = _dbContext.FacilityReports
+                    .Where(r =>r.EmployeeID == eid)
+                    .ToList();
+
+            //var result = _dbContext.FacilityReports
+            //        .Include(d => d.FacilityReportDetails)
+            //        .Where(r => r.EmployeeID == eid)
+            //        .ToList();
+            return result;
+
+        }
 
         public void addComment(CreateFacilityDetail createFacilityDetail)
         {

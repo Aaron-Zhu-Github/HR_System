@@ -53,6 +53,7 @@
 
     <None Remove="Services\" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="ClientApp\src\app\house\comment\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +63,7 @@
 
   <ItemGroup>
     <Folder Include="DAO\" />
+    <Folder Include="ClientApp\src\app\house\comment\" />
   </ItemGroup>
 
   <ItemGroup>
