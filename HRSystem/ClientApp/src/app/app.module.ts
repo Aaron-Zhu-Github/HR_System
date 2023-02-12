@@ -42,7 +42,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileReviewComponent } from './file-review/file-review.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
-import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
 import { CommonModule } from '@angular/common';
 import { DocumentTemplateComponent } from './document-template/document-template.component';
 
