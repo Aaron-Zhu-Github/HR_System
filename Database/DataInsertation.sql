@@ -71,3 +71,12 @@ VALUES
 )
 -- add more rows here
 GO
+
+
+INSERT INTO DigitalDocument (Type, Required, TemplateLocation, Description)
+VALUES ('Visa', 1, 'visa.jpg', 'Visa document sample');
+
+INSERT INTO Employee
+(PersonId, Title, ManagerID, StartDate, EndDate, Avatar, Car, VisaStatusID, VisaStartDate, VisaEndDate, DriverLisence, DriverLisence_ExpirationDate, HouseID)
+VALUES
+(999, 'HR', 0, '2023-02-07 00:00:00.000', null, '167619310728292161858_p0_master1200.jpg', 'Audi_Q7_Black', 7, '2022-10-01', '2023-10-01', 'A123456', NULL, 1);

@@ -259,8 +259,8 @@ GO
     CREATE TABLE ApplicationWorkFlow (
         ID int PRIMARY KEY IDENTITY(1, 1),
         EmployeeID int NOT NULL,
-        CreatedDate datetime NOT NULL,
-        ModificationDate datetime NOT NULL,
+        CreatedDate DATETIME2 NOT NULL,
+        ModificationDate DATETIME2 NOT NULL,
         STATUS nvarchar(50) NOT NULL,
         Comments nvarchar(500) NULL,
         TYPE nvarchar(50) NOT NULL,

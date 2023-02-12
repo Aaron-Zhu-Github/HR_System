@@ -29,9 +29,10 @@ export class AvatarUploadComponent {
       this.http.post(environment.API_URL + "api/avatar/upload", formData)
         .subscribe(
           response => {
-            console.log(response);
+            // console.log(response);
             this.uploaded = true;
             (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
+            // console.log(this.selectedFile.name);
             this.avatarPathEmitter.emit(this.selectedFile.name);
           },
           (err)=>{

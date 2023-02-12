@@ -35,3 +35,6 @@ EXEC sp_RENAME 'VisaStatus.Actice', 'Active', 'COLUMN'
 EXEC sp_RENAME 'Employee.PersonID', 'PersonId', 'COLUMN'
 
 EXEC sp_RENAME 'Employee.Avartar', 'Avatar', 'COLUMN'
+
+ALTER TABLE
+    Employee DROP CONSTRAINT FK__Employee__HouseI__7D439ABD

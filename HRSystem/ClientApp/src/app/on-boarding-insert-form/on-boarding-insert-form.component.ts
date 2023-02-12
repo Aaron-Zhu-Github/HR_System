@@ -29,6 +29,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
       lastName:['', Validators.required],
       preferredName:[''],
       email:[''],
+      avatar:[''],
       cellPhone:['', Validators.required],
       alternatePhone:[''],
       gender:[''],
@@ -52,6 +53,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
         endDate:[''],
         visaStartDate:['', Validators.required] || new Date(),
         visaEndDate:['', Validators.required] || new Date(),
+        hasDriverLicense: [false],
         driverLisence:['', Validators.required],
         driverLisence_ExpirationDate:['', Validators.required] || new Date(),
         //Embedded visaStatus formGroup
@@ -79,25 +81,26 @@ export class OnBoardingInsertFormComponent implements OnInit {
       firstName: this.applicationForm.value.firstName,
       middleName: this.applicationForm.value.middleName,
       lastName: this.applicationForm.value.lastName,
-      preferredName: this.applicationForm.value.preferredName,
+      preferredName: this.applicationForm.value.preferredName || null,
       email: this.applicationForm.value.email,
+      avatar: this.applicationForm.value.avatar,
       cellPhone: this.applicationForm.value.cellPhone,
       alternatePhone: this.applicationForm.value.alternatePhone,
       gender: this.applicationForm.value.gender,
       ssn: this.applicationForm.value.ssn,
-      dob: this.applicationForm.value.dob,
+      dob: this.applicationForm.value.dob || null,
       Address: this.applicationForm.value.address,
       Employee:{HouseId: this.applicationForm.value.employee.houseId, 
                 car: this.applicationForm.value.employee.car,
                 title: this.applicationForm.value.employee.title,
-                startDate: this.applicationForm.value.employee.startDate,
-                endDate: this.applicationForm.value.employee.endDate,   
-                visaStartDate: this.applicationForm.value.employee.visaStartDate,
-                visaEndDate: this.applicationForm.value.employee.visaEndDate,
+                startDate: this.applicationForm.value.employee.startDate || null,
+                endDate: this.applicationForm.value.employee.endDate || null,   
+                visaStartDate: this.applicationForm.value.employee.visaStartDate || null,
+                visaEndDate: this.applicationForm.value.employee.visaEndDate || null,
                 driverLisence: this.applicationForm.value.employee.driverLisence,
-                driverLisence_ExpirationDate: this.applicationForm.value.employee.driverLisence_ExpirationDate,
+                driverLisence_ExpirationDate: this.applicationForm.value.employee.driverLisence_ExpirationDate || null,
                 visaStatus:{ visaType: this.applicationForm.value.employee.visaStatus.visaType,
-                             active: this.applicationForm.value.employee.visaStatus.active,
+                             active: this.applicationForm.value.employee.visaStatus.active || true,
                              modificationDate: this.applicationForm.value.employee.visaStatus.modificationDate,
                              createUser: this.applicationForm.value.employee.visaStatus.createUser}
               },
@@ -105,111 +108,118 @@ export class OnBoardingInsertFormComponent implements OnInit {
     };
     console.log(PersonInfo);
 
-    //alerts
-    if(PersonInfo.firstName == null || PersonInfo.firstName == ""){
-      alert("Please insert your first name");
-      return;
-    }
-    if(PersonInfo.lastName == null || PersonInfo.lastName == ""){
-      alert("Please insert your last name");
-      return;
-    }
-    if(PersonInfo.email == null || PersonInfo.email == ""){
-      alert("Please insert your email");
-      return;
-    }
-    if(PersonInfo.cellPhone == null || PersonInfo.cellPhone == ""){
-      alert("Please insert your cellphone");
-      return;
-    }
-    if(PersonInfo.Address.addressLine1 == null || PersonInfo.Address.addressLine1== ""){
-      alert("Please insert your address line 1");
-      return;
-    }
-    if(PersonInfo.Address.zipCode == null || PersonInfo.Address.zipcode == ""){
-      alert("Please insert your address zipcode");
-      return;
-    }
-    if(PersonInfo.Address.stateName == null || PersonInfo.Address.stateName == ""){
-      alert("Please insert your address state name");
-      return;
-    }
-    if(PersonInfo.Address.stateAbbr == null || PersonInfo.Address.stateAbbr == ""){
-      alert("Please insert your address state name abbreviation");
-      return;
-    }
-    if(PersonInfo.Employee.HouseId <= 0 || PersonInfo.Employee.HouseId == ""){
-      alert("Please insert your employee house ID");
-      return;
-    }
-    if(PersonInfo.Employee.visaStartDate== null || PersonInfo.Employee.visaStartDate == ""){
-      alert("Please insert your visa start date");
-      return;
-    }
-    if(PersonInfo.Employee.visaEndDate == null || PersonInfo.Employee.visaEndDate == ""){
-      alert("Please insert your visa end date");
-      return;
-    }
-    if(PersonInfo.Employee.driverLisence == null || PersonInfo.Employee.driverLisence == ""){
-      alert("Please insert your driver's lisence");
-      return;
-    }
-    if(PersonInfo.Employee.driverLisence_ExpirationDate == null || PersonInfo.Employee.driverLisence_ExpirationDate == ""){
-      alert("Please insert your driver's lisence expiration date");
-      return;
-    }
-    if(PersonInfo.Employee.visaStatus.visaType == null || PersonInfo.Employee.visaStatus.visaType == ""){
-      alert("Please insert your visa type");
-      return;
-    }
-    if(PersonInfo.Employee.visaStatus.active == null || PersonInfo.Employee.visaStatus.visaType == ""){
-      alert("Please check if your visa status is active");
-      return;
-    }
-    if(PersonInfo.Employee.visaStatus.modificationDate == null || PersonInfo.Employee.visaStatus.modificationDate == ""){
-      alert("Please insert your modification date");
-      return;
-    }
-    if(PersonInfo.Employee.visaStatus.createUser == null || PersonInfo.Employee.visaStatus.createUser == ""){
-      alert("Please insert the created user ID");
-      return;
-    }
-    for(let i = 0; i < PersonInfo.ContactList.length; i++){
-      if(PersonInfo.ContactList[i].relationship == null || PersonInfo.ContactList[i].relationship == ""){
-        alert("Please insert the contact relationship");
-        return;
-      }
-      if(PersonInfo.ContactList[i].isReferrence == false && PersonInfo.ContactList[i].isEmergencey == false){
-        alert("Please choose if it is a referrence or mergencey as contact");
-        return;
-      }
-      //console.log(PersonInfo.ContactList[i].contactor);
-      if(PersonInfo.ContactList[i].contactor.contactorFirstName == null || PersonInfo.ContactList[i].contactor.contactorFirstName == ""){
-        alert("Please insert the contactor first name");
-        return;
-      }
-      if(PersonInfo.ContactList[i].contactor.contactorLastName == null || PersonInfo.ContactList[i].contactor.contactorLastName == ""){
-        alert("Please insert the contactor last name");
-        return;
-      }
-      if(PersonInfo.ContactList[i].contactor.contactorEmail == null || PersonInfo.ContactList[i].contactor.contactorEmail == ""){
-        alert("Please insert the contactor email");
-        return;
-      }
-      if(PersonInfo.ContactList[i].contactor.contactorCellPhone == null || PersonInfo.ContactList[i].contactor.contactorCellPhone == ""){
-        alert("Please insert the contactor cell phone");
-        return;
-      }
-    }
-
+    if(!this.ValidateInputs(PersonInfo)){ return; }
+    
     this.http.post('https://localhost:5401/api/OnBoarding/Form', PersonInfo)
       .subscribe(
         (res)=>{
           console.log(res);
           //router to file page
-          this.router.navigate(['/home']);
+          this.router.navigate(['/Documentation']);
+        },
+        (err)=>{
+          alert(err.error.message);
         }
       )
+  }
+  ValidateInputs(PersonInfo:any) : boolean {
+    //alerts
+    if(PersonInfo.firstName == null || PersonInfo.firstName == ""){
+      alert("Please insert your first name");
+      return false;
+    }
+    if(PersonInfo.lastName == null || PersonInfo.lastName == ""){
+      alert("Please insert your last name");
+      return false;
+    }
+    if(PersonInfo.email == null || PersonInfo.email == ""){
+      alert("Please insert your email");
+      return false;
+    }
+    if(PersonInfo.cellPhone == null || PersonInfo.cellPhone == ""){
+      alert("Please insert your cellphone");
+      return false;
+    }
+    if(PersonInfo.Address.addressLine1 == null || PersonInfo.Address.addressLine1== ""){
+      alert("Please insert your address line 1");
+      return false;
+    }
+    if(PersonInfo.Address.zipCode == null || PersonInfo.Address.zipcode == ""){
+      alert("Please insert your address zipcode");
+      return false;
+    }
+    if(PersonInfo.Address.stateName == null || PersonInfo.Address.stateName == ""){
+      alert("Please insert your address state name");
+      return false;
+    }
+    if(PersonInfo.Address.stateAbbr == null || PersonInfo.Address.stateAbbr == ""){
+      alert("Please insert your address state name abbreviation");
+      return false;
+    }
+    // if(PersonInfo.Employee.HouseId <= 0 || PersonInfo.Employee.HouseId == ""){
+    //   alert("Please insert your employee house ID");
+    //   return false;
+    // }
+    if(PersonInfo.Employee.visaStartDate== null || PersonInfo.Employee.visaStartDate == ""){
+      alert("Please insert your visa start date");
+      return false;
+    }
+    if(PersonInfo.Employee.visaEndDate == null || PersonInfo.Employee.visaEndDate == ""){
+      alert("Please insert your visa end date");
+      return false;
+    }
+    // if(PersonInfo.Employee.driverLisence == null || PersonInfo.Employee.driverLisence == ""){
+    //   alert("Please insert your driver's lisence");
+    //   return false;
+    // }
+    // if(PersonInfo.Employee.driverLisence_ExpirationDate == null || PersonInfo.Employee.driverLisence_ExpirationDate == ""){
+    //   alert("Please insert your driver's lisence expiration date");
+    //   return false;
+    // }
+    if(PersonInfo.Employee.visaStatus.visaType == null || PersonInfo.Employee.visaStatus.visaType == ""){
+      alert("Please insert your visa type");
+      return false;
+    }
+    // if(PersonInfo.Employee.visaStatus.active == null || PersonInfo.Employee.visaStatus.visaType == ""){
+    //   alert("Please check if your visa status is active");
+    //   return false;
+    // }
+    if(PersonInfo.Employee.visaStatus.modificationDate == null || PersonInfo.Employee.visaStatus.modificationDate == ""){
+      alert("Please insert your modification date");
+      return false;
+    }
+    if(PersonInfo.Employee.visaStatus.createUser == null || PersonInfo.Employee.visaStatus.createUser == ""){
+      alert("Please insert the created user ID");
+      return false;
+    }
+    for(let i = 0; i < PersonInfo.ContactList.length; i++){
+      if(PersonInfo.ContactList[i].relationship == null || PersonInfo.ContactList[i].relationship == ""){
+        alert("Please insert the contact relationship");
+        return false;
+      }
+      if(PersonInfo.ContactList[i].isReferrence == false && PersonInfo.ContactList[i].isEmergencey == false){
+        alert("Please choose if it is a referrence or mergencey as contact");
+        return false;
+      }
+      //console.log(PersonInfo.ContactList[i].contactor);
+      if(PersonInfo.ContactList[i].contactor.contactorFirstName == null || PersonInfo.ContactList[i].contactor.contactorFirstName == ""){
+        alert("Please insert the contactor first name");
+        return false;
+      }
+      if(PersonInfo.ContactList[i].contactor.contactorLastName == null || PersonInfo.ContactList[i].contactor.contactorLastName == ""){
+        alert("Please insert the contactor last name");
+        return false;
+      }
+      if(PersonInfo.ContactList[i].contactor.contactorEmail == null || PersonInfo.ContactList[i].contactor.contactorEmail == ""){
+        alert("Please insert the contactor email");
+        return false;
+      }
+      if(PersonInfo.ContactList[i].contactor.contactorCellPhone == null || PersonInfo.ContactList[i].contactor.contactorCellPhone == ""){
+        alert("Please insert the contactor cell phone");
+        return false;
+      } 
+    }
+    return true;
   }
 
   addContact(){
@@ -245,10 +255,16 @@ export class OnBoardingInsertFormComponent implements OnInit {
       this.applicationForm.patchValue({employee:{startDate: new Date(1990,1,1)}});
       this.applicationForm.patchValue({employee:{endDate: new Date()}});
       this.applicationForm.patchValue({employee:{visaStatus:{createUser: 999}}});
+      this.applicationForm.patchValue({employee:{visaStatus:{modificationDate: new Date()}}});
+      this.applicationForm.patchValue({avatar: "default.png"});
     },
     error => console.error(error));
   }
 
+  onAvatarPathEmitted(value:string){
+    // console.log(value);
+    this.applicationForm.patchValue({avatar: value});
+  }
 }
 
 interface Person{

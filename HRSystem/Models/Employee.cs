@@ -62,7 +62,7 @@ namespace HRSystem.Models
 
         [DisplayName("Driver's Lisence")]
         [StringLength(50)]
-        public string DriverLisence { get; set; }
+        public string? DriverLisence { get; set; }
 
 
         [DisplayName("Driver's Lisence Expiration Date")]
@@ -70,7 +70,7 @@ namespace HRSystem.Models
         public DateTime? DriverLisence_ExpirationDate { get; set; }
 
 
-        public int HouseId { get; set; }
+        public int? HouseId { get; set; }
 
 
         //EF realtionship

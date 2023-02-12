@@ -1,17 +1,17 @@
 <h1>Hello, {{name}}</h1>
 <!-- <p>Status: {{status}}</p> -->
-<p>Welcome to BeaconFire Solution</p>
 <!-- <app-file-upload [title]="'Driver License'"></app-file-upload>
 <app-file-download></app-file-download>
 
 <app-file-review></app-file-review>
 
 <app-avatar-upload (avatarPathEmitter)="onAvatarPathEmitted($event)"></app-avatar-upload> -->
-
+<img class="img-fluid" src="{{fileUrl+ avatar}}" alt="avatar" width="128" height="128">
+<p>Welcome to BeaconFire Solution</p>
 <ng-container *ngIf="status=='pending'">
     <p>Waiting for HR review, please check back later.</p>
 </ng-container>
 
 <ng-container *ngIf="status=='rejected'">
-    <p>Waiting for HR review, please check back later.</p>
+    <p>Application Rejected, please check comment and submit again after fix the issue.</p>
 </ng-container>

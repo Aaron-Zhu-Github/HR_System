@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { StatusService } from '../shared/status.service';
 import { switchMap } from 'rxjs';
 import { VisaService } from '../shared/visa.service';
+import { AvatarService } from '../shared/avatar.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { VisaService } from '../shared/visa.service';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private visaService:VisaService,private statusService:StatusService,private authService:AuthService,private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private avatarService:AvatarService,private visaService:VisaService,private statusService:StatusService,private authService:AuthService,private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   loginForm!: FormGroup;
 
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
         this.visaService.setVisaType(res.visaType);
         this.statusService.setName(res.name);
         this.visaService.setVisaEndDate(res.visaEndDate);
+        this.visaService.setVisaEndDate(res.visaEndDate);
+        this.avatarService.setAvatar(res.avatar);
         if (res.status == 'Open') {
           this.router.navigate(['/OnBoarding'])
         } else {
@@ -78,4 +81,5 @@ interface statusResponse {
   visaStatus:string;
   name:string;
   visaEndDate:Date;
+  avatar:string;
 }

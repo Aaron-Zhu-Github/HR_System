@@ -44,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
 import { CommonModule } from '@angular/common';
 import { DocumentTemplateComponent } from './document-template/document-template.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 
 @NgModule({
@@ -60,10 +61,6 @@ import { DocumentTemplateComponent } from './document-template/document-template
     EmploymentSecComponent,
     OnBoardingInsertFormComponent,
     LoginComponent,
-
-
-    HouseComponent,
-
     HouseComponent,
     HREmployeeProfileComponent,
     HRHouseManagementComponent,
@@ -74,6 +71,7 @@ import { DocumentTemplateComponent } from './document-template/document-template
     FileReviewComponent, 
     VisaStatusManagementComponent,
     DocumentTemplateComponent,
+    DocumentationComponent,
     AvatarUploadComponent,  
     HireComponent,
     RegisterComponent,
@@ -102,6 +100,7 @@ import { DocumentTemplateComponent } from './document-template/document-template
       {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard,ApprovedStatusGuard]},
       { path: 'House', component: HouseComponent, canActivate: [AuthGuard,ApprovedStatusGuard] },
       { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
+      { path: 'Documentation', component: DocumentationComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'HR/Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/EmployeeProfile', component: HREmployeeProfileComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/VisaStatusManagement', component: HRVisaStatusManagementComponent, canActivate: [AuthGuard,RoleGuard] },

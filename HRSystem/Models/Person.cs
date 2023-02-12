@@ -26,7 +26,6 @@ namespace HRSystem.Models
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
 
-
         [DataType(DataType.PhoneNumber)]
         public string? CellPhone { get; set; }
 

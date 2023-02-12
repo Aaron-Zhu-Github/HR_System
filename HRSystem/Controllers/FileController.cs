@@ -145,6 +145,14 @@
             return Ok(files);
         }
 
+        [HttpGet("/api/requiredfile")]
+        public async Task<IActionResult> GetRequiredFiles()
+        {
+            var required = await _dbContext.DigitalDocuments.Where(d=>d.Required).Select(x => new { Title = x.Type, Path = x.TemplateLocation }).ToListAsync();
+
+            return Ok(required);
+        }
+
         [Route("/api/file/get")]
         [HttpGet]
         public async Task<IActionResult> Get(string fileName)

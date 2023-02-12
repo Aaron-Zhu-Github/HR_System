@@ -1,4 +1,6 @@
-﻿using HRSystem.Models;
+﻿using HRSystem.Enum;
+using HRSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HRSystem.DAO
@@ -18,14 +20,27 @@ namespace HRSystem.DAO
 
             try
             {
-                _dbContext.Persons.Add(person);
+                
+                _dbContext.Persons.Update(person);
                 _dbContext.SaveChanges();
-
+                Models.ApplicationWorkFlow? applicationWorkFlow = _dbContext.ApplicationWorkFlows.FirstOrDefault(a => person.Employee != null && a.EmployeeId == person.Employee.Id && a.Type == WorkflowType.OnBoarding.ToString());
+                if (applicationWorkFlow == null)
+                {
+                    _ = _dbContext.ApplicationWorkFlows.Add(new Models.ApplicationWorkFlow()
+                    {
+                        EmployeeId = person.Employee.Id,
+                        CreatedDate = DateTime.Now,
+                        Status = "Open",
+                        Type = WorkflowType.OnBoarding.ToString(),
+                    });
+                }
+                _dbContext.SaveChanges();
                 transaction.Commit();
             }
             catch (Exception ex) {
                 transaction.Rollback();
                 Console.WriteLine(ex.Message);
+                throw;
             }
         }
 

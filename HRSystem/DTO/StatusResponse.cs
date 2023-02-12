@@ -11,5 +11,6 @@
         public string? VisaType { get; set; }
         public string? Name { get; internal set; }
         public DateTime VisaEndDate { get; internal set; } = DateTime.MinValue;
+        public string? Avatar { get; internal set; }
     }
 }

@@ -53,6 +53,19 @@ namespace HRSystem.Controllers
         [HttpPost("Form")]
         public IActionResult AddForm([FromBody] Person person)
         {
+            int personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            person.Id = personId;
+            if(person.Employee is not null)
+            {
+                person.Employee.PersonId = personId;
+            }
+            if (person.ContactList is not null && person.ContactList.Count > 0)
+            {
+                foreach(var contact in person.ContactList)
+                {
+                    contact.PersonId= personId;
+                }
+            }
             _onBoardingDAO.InsertForm(person);
             return Ok(new {message="Form insert succeed"});
         }
