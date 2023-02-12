@@ -3,11 +3,12 @@
     using System.Security.Claims;
     using HRSystem.DAO;
     using HRSystem.DTO;
+    using HRSystem.Enum;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
     [ApiController]
-    public class StatusController:ControllerBase
+    public class StatusController : ControllerBase
     {
         private readonly ILogger<StatusController> _logger;
 
@@ -22,31 +23,58 @@
         [HttpGet("/api/GetStatus")]
         public async Task<ActionResult> GetStatus()
         {
-            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
-            var role = User.FindFirstValue("Role");
-
-            if(role == "HR")
-                return Ok(new StatusResponse() { Status = "HRStatus" });
-
-            var employee = await _dbContext.Employees.Where(e=>e.PersonId== personId).FirstOrDefaultAsync();
-            if(employee == null || employee.Id == 0)
+            try
             {
-                return Ok(new StatusResponse() { Status = "Open" });
-            }
-            var applicationWorkFlow= await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id && a.Type== "Onboarding");
-            if(applicationWorkFlow == null)
-            {
-                _dbContext.ApplicationWorkFlows.Add(new Models.ApplicationWorkFlow()
+                int personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+                string role = User.FindFirstValue("Role");
+
+                Models.Person? person = await _dbContext.Persons.FindAsync(personId);
+
+                if (person == null)
                 {
-                    EmployeeId = employee.Id,
-                    CreatedDate= DateTime.Now,
-                    Status= "Open",
-                    Type= "Onboarding"
-                });
+                    throw new Exception("Person not found");
+                }
 
-                return Ok(new StatusResponse() { Status = "Open" });
+                if (role == "HR")
+                {
+                    return Ok(new StatusResponse() { Status = "HRStatus", Name = person.PreferredName ?? person.Firstname });
+                }
+
+                Models.Employee? employee = await _dbContext.Employees.Where(e => e.PersonId == personId).Include(e => e.VisaStatus).FirstOrDefaultAsync();
+                if (employee == null || employee.Id == 0)
+                {
+                    return Ok(new StatusResponse() { Status = "Open", Name = person.PreferredName ?? person.Firstname });
+                }
+
+                Models.ApplicationWorkFlow? applicationWorkFlow = await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id && a.Type == WorkflowType.OnBoarding.ToString());
+                if (applicationWorkFlow == null)
+                {
+                    _ = _dbContext.ApplicationWorkFlows.Add(new Models.ApplicationWorkFlow()
+                    {
+                        EmployeeId = employee.Id,
+                        CreatedDate = DateTime.Now,
+                        Status = "Open",
+                        Type = WorkflowType.OnBoarding.ToString(),
+                    });
+
+                    return Ok(new StatusResponse() { Status = "Open", Name = person.PreferredName ?? person.Firstname });
+                }
+
+                Models.ApplicationWorkFlow? visaStatus = await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id && a.Type == WorkflowType.Visa.ToString());
+                return Ok(new StatusResponse()
+                {
+                    Status = applicationWorkFlow?.Status ?? "Open",
+                    VisaStatus = visaStatus?.Status ?? "",
+                    VisaType = employee.VisaStatus?.VisaType ?? "",
+                    Name = person.PreferredName ?? person.Firstname,
+                    VisaEndDate = employee.VisaEndDate?? DateTime.MinValue,
+                });
             }
-            return Ok(new StatusResponse() { Status = applicationWorkFlow?.Status?? "Open" });
+            catch(Exception ex)
+            {
+                _logger.LogError(ex?.Message);
+                throw;
+            }
         }
     }
 }

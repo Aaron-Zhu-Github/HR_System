@@ -10,8 +10,8 @@ export class AuthService {
   private roleSubject = new BehaviorSubject<string>('');
 
   constructor(private router:Router) {
-    const storedValue = localStorage.getItem('isLoggedIn');
-    this.isAuthenticatedSubject.next(storedValue === 'true');
+    // const storedValue = localStorage.getItem('isLoggedIn');
+    // this.isAuthenticatedSubject.next(storedValue === 'true');
   }
 
   login() {

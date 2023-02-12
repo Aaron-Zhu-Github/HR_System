@@ -33,7 +33,7 @@
                     Message = ex.Message,
                 };
 
-                await response.WriteAsync(exceptionResponse.ToString());
+                await response.WriteAsync(exceptionResponse?.ToString()??"");
             }
         }
     }

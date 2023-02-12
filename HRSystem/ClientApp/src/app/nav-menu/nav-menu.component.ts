@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { StatusService } from '../shared/status.service';
+import { VisaService } from '../shared/visa.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,11 +11,12 @@ import { StatusService } from '../shared/status.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  constructor(private authService:AuthService, private statusService:StatusService){}
+  constructor(private visaService:VisaService,private authService:AuthService, private statusService:StatusService,private router:Router){}
   isExpanded = false;
   isLoggedIn: boolean = false;
   role!:string;
   status!:string;
+  visaType!:string;
   ngOnInit() {
     this.authService.isLoggedIn().subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
@@ -26,6 +29,10 @@ export class NavMenuComponent {
       // console.log('nav role update');
       this.status = status;
       // console.log('nav'+status);
+    });
+
+    this.visaService.getVisaType().subscribe(visaType => {
+      this.visaType = visaType;
     });
   }
 

@@ -13,6 +13,7 @@ import { StatusService } from '../shared/status.service';
 export class HomeComponent {
   role: string = '';
   status:string=''
+  name!: string;
   constructor(private authService: AuthService, private http: HttpClient, private router: Router, private statusService: StatusService) {
     this.statusService.getStatus().subscribe(res => {
       if (res === 'Open') {
@@ -20,6 +21,10 @@ export class HomeComponent {
       }
       this.status = res;
       // console.log(this.status);
+    });
+
+    this.statusService.getName().subscribe(name => {
+      this.name = name;
     });
   }
 

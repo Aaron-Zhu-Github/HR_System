@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { v4 as uuidv4 } from 'uuid';
+import { VisaStatus } from '../enum/visa-status';
+import { VisaService } from '../shared/visa.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,12 +13,15 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class FileUploadComponent {
   @Input() title: string = '';
+  @Input() isVisaDocument: boolean = false;
+  @Input() nextVisaStatus:string= VisaStatus.Unknown
+  @Output() fileUploaded = new EventEmitter<any>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router,private visaService:VisaService) { }
   private selectedFile!: File;
   componentId!: string;
 
-  ngOnInit(){
+  ngOnInit() {
     this.componentId = uuidv4();
   }
 
@@ -32,18 +38,28 @@ export class FileUploadComponent {
       const formData = new FormData();
       formData.append("file", this.selectedFile, Date.now().toString() + this.selectedFile.name);
       formData.append("title", this.title);
+      formData.append("isVisaDocument", this.isVisaDocument.toString());
+      formData.append("nextVisaStatus", this.nextVisaStatus);
+      console.log(formData);
       this.http.post(environment.API_URL + "api/file/upload", formData)
         .subscribe(
           response => {
             console.log(response);
-            alert("file uploaded");
             // (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
-            (document.querySelector("#"+this.componentId) as HTMLInputElement).value = "";
+            (document.querySelector("input[id='"+this.componentId+"']") as HTMLInputElement).value = "";
           },
-          (err)=>{
+          (err) => {
             alert(err.error.message)
           }
         );
+
+        if(this.isVisaDocument){
+          this.visaService.updateVisa();
+          this.router.navigate(['/home']);
+        }
     }
   }
+
+ 
 }
+

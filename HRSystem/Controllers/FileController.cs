@@ -4,6 +4,7 @@
     using System.Transactions;
     using HRSystem.DAO;
     using HRSystem.DTO;
+    using HRSystem.Enum;
     using HRSystem.Models;
     using HRSystem.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -70,9 +71,36 @@
                     });
                 }                
                 await _dbContext.SaveChangesAsync();
+                if(model.IsVisaDocument is not null && model.IsVisaDocument.Equals("true")) await UpdateVisaWorkFlow(model, employee.Id);
                 scope.Complete();
             }
             return Ok(new {message="File uploaded"});
+        }
+
+        private async Task UpdateVisaWorkFlow(FileModel model, int employeeId)
+        {
+            var workFlow = await _dbContext.ApplicationWorkFlows.Where(w => w.EmployeeId.Equals(employeeId) && w.Type == WorkflowType.Visa.ToString())
+                                                                .FirstOrDefaultAsync();
+            if(workFlow is null)
+            {
+                workFlow = new ApplicationWorkFlow()
+                {
+                    EmployeeId = employeeId,
+                    Type = WorkflowType.Visa.ToString(),
+                    CreatedDate= DateTime.Now,
+                    ModificationDate= DateTime.Now,
+                    Status = model.NextVisaStatus
+                };
+                await _dbContext.ApplicationWorkFlows.AddAsync(workFlow);
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                workFlow.ModificationDate = DateTime.Now;
+                workFlow.Status = model.NextVisaStatus;
+                _dbContext.Update(workFlow);
+                await _dbContext.SaveChangesAsync();
+            }
         }
 
         [HttpPost("/api/file/AddComment")]

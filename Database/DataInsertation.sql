@@ -61,3 +61,13 @@ VALUES
 -- add more rows here
 GO
 
+INSERT INTO ApplicationWorkFlow
+( -- columns to insert data into
+ [EmployeeID], [CreatedDate], [STATUS],[Type],[ModificationDate]
+)
+VALUES
+( -- first row: values for the columns in the list above
+ 8, GETDATE(), 'OPT_Receipt','Visa', GETDATE()
+)
+-- add more rows here
+GO
