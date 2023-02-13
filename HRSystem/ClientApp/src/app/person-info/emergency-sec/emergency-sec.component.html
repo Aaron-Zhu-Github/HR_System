@@ -3,7 +3,7 @@
 <ng-container *ngIf="!editMode && emergencySec?.emergencyContacts">
     <div *ngFor="let item of emergencySec?.emergencyContacts; let i = index">
         <ul>
-            <h4>Emergency Contact {{i+1}}</h4>
+            <h4><b>Emergency Contact {{i+1}}</b></h4>
             
             <li>First Name: {{item.person.firstname}}</li>
             <li>Last Name: {{item.person.lastname}}</li>
@@ -26,6 +26,7 @@
 <form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div formArrayName="personArray">
       <div *ngFor="let person of personFormGetter.controls; let i=index">
+        <h3><b>Emergency Contact Name {{i+1}}</b></h3>
         <div [formGroupName]="i">
           <div class="form-group">
             <label>First Name:</label>
@@ -45,10 +46,12 @@
           </div>
         </div>
       </div>
+      <br>
     </div>
   
     <div formArrayName="addressArray">
       <div *ngFor="let address of addressFormGetter.controls; let i=index">
+        <h3><b>Emergency Contact Address {{i+1}}</b></h3>
         <div [formGroupName]="i">
           <div>
             <label>Address Line 1:</label>
@@ -76,6 +79,7 @@
           </div>
         </div>
       </div>
+      <br>
     </div>
   
     <button type="submit" [disabled]="!editForm.valid" class="btn btn-primary">Save</button>

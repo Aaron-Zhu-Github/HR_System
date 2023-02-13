@@ -34,6 +34,14 @@ export class EmergencySecComponent implements OnInit {
 
   
   populateForm(){
+    while (this.addressFormGetter.length) {
+      this.addressFormGetter.removeAt(0);
+    }
+
+    while (this.personFormGetter.length) {
+      this.personFormGetter.removeAt(0);
+    }
+
     for (let item of this.emergencySec.emergencyContacts){
       this.addressFormGetter.push(this.formBuilder.group({
         addressLine1: [item.address.addressLine1,Validators.required],

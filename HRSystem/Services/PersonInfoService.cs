@@ -101,8 +101,8 @@ namespace HRSystem.Services
 			foreach (var item in em_contacts)
 			{
 				var new_elem = new EmergencyContact();
-				new_elem.Address = _personInfoDAO.GetAddress(pid).FirstOrDefault();
-                new_elem.person = _personInfoDAO.GetPerson(pid);
+				new_elem.Address = _personInfoDAO.GetAddress(item.ContactPersonId).FirstOrDefault();
+                new_elem.person = _personInfoDAO.GetPerson(item.ContactPersonId);
 				res.emergencyContacts.Add(new_elem);
             }
 

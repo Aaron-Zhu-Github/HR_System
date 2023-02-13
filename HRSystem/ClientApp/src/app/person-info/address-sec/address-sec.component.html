@@ -4,10 +4,10 @@
     <div *ngFor="let item of addressSec?.addresses">
         <ul>
             <h4 *ngIf="item.isSecondary">
-                Secondary Address
+                <b>Secondary Address</b>
             </h4>
             <h4 *ngIf="!item.isSecondary">
-                Primary Address
+                <b>Primary Address</b>
             </h4>
             <li>Address Line 1: {{item.addressLine1}}</li>
             <li>Address Line 2: {{item.addressLine2}}</li>
@@ -25,12 +25,12 @@
 <form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div formArrayName="addressArray">
       <div *ngFor="let address of addressFormGetter.controls; let i=index">
-            <h5 *ngIf="i == 1">
-                Secondary Address
-            </h5>
-            <h5 *ngIf="i == 0">
-                Primary Address
-            </h5>
+            <h4 *ngIf="i == 1">
+                <b>Secondary Address</b>
+            </h4>
+            <h4 *ngIf="i == 0">
+                <b>Primary Address</b>
+            </h4>
         <div [formGroupName]="i">
           <div class="form-group">
             <label for="addressLine1">Address Line 1:</label>

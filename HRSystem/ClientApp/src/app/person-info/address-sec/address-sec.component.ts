@@ -38,6 +38,10 @@ export class AddressSecComponent implements OnInit {
   }
 
   populateForm(){
+    while (this.addressFormGetter.length) {
+      this.addressFormGetter.removeAt(0);
+    }
+
     for (let address of this.addressSec.addresses){
       this.addressFormGetter.push(this.formBuilder.group({
         id: [address.id],
@@ -90,7 +94,8 @@ export class AddressSecComponent implements OnInit {
       this.addressSec.addresses[i].stateAbbr = item.value.stateAbbr;
       i += 1;
     }
-
+    
+    console.log(this.addressSec);
     this.http.post<AddressSec>('https://localhost:5401/api/PersonalInformation/address', this.addressSec)
     .subscribe(data => {
       // this.nameSec = data;
