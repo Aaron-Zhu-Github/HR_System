@@ -104,7 +104,18 @@
       </div>
                 <div [formGroup]="visaStatus">
                   <div class="form-group">
-                    <label for="visaType">visaType</label>
+                    <label for="isUSResident">Are you a citizen or permanent resident of the U.S?</label>
+                    <input type="checkbox" formControlName="isUSResident" id="isUSResident">
+                  </div>
+                  <div *ngIf="applicationForm.get('employee')?.get('visaStatus')?.get('isUSResident')?.value === true" class="form-group">
+                    <label for="usResidenceType">If yes, choose either “Green Card” or “Citizen”</label>
+                    <select class="form-control" formControlName="usResidenceType" id="usResidenceType">
+                      <option value="Green Card">Green Card</option>
+                      <option value="Citizen">Citizen</option>
+                    </select>
+                  </div>
+                  <div *ngIf="applicationForm.get('employee')?.get('visaStatus')?.get('isUSResident')?.value === false" class="form-group">
+                    <label for="visaType">What is your work authorization?</label>
                     <select class="form-control" formControlName="visaType" id="visaType">
                       <option value="H1-B">H1-B</option>
                       <option value="L2">L2</option>

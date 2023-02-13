@@ -58,6 +58,8 @@ export class OnBoardingInsertFormComponent implements OnInit {
         driverLisence_ExpirationDate:[''] || null,
         //Embedded visaStatus formGroup
         visaStatus: this.visaStatus = this.fbuild.group({
+          isUSResident:[''] || false,
+          usResidenceType:[''] ||null,
           visaType:['', Validators.required],
           otherVisaType:[''] || null,
           active:[null, Validators.required],
@@ -101,7 +103,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
                 visaEndDate: this.applicationForm.value.employee.visaEndDate || null,
                 driverLisence: this.applicationForm.value.employee.driverLisence,
                 driverLisence_ExpirationDate: this.applicationForm.value.employee.driverLisence_ExpirationDate || null,
-                visaStatus:{ visaType: this.applicationForm.value.employee.visaStatus.visaType === "Other" ? this.applicationForm.value.employee.visaStatus.otherVisaType : this.applicationForm.value.employee.visaStatus.visaType,
+                visaStatus:{ visaType: this.applicationForm.value.employee.visaStatus.isUSResident?this.applicationForm.value.employee.visaStatus.usResidenceType:( this.applicationForm.value.employee.visaStatus.visaType === "Other" ? this.applicationForm.value.employee.visaStatus.otherVisaType : this.applicationForm.value.employee.visaStatus.visaType),
                              active: this.applicationForm.value.employee.visaStatus.active || true,
                              modificationDate: this.applicationForm.value.employee.visaStatus.modificationDate,
                              createUser: this.applicationForm.value.employee.visaStatus.createUser}
@@ -109,7 +111,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
        ContactList: this.applicationForm.value.contacts,
     };
     console.log(PersonInfo);
-
+    console.log(this.applicationForm.value.employee.visaStatus.isUSResident?this.applicationForm.value.employee.visaStatus.usResidenceType:( this.applicationForm.value.employee.visaStatus.visaType === "Other" ? this.applicationForm.value.employee.visaStatus.otherVisaType : this.applicationForm.value.employee.visaStatus.visaType));
     if(!this.ValidateInputs(PersonInfo)){ return; }
     
     this.http.post('https://localhost:5401/api/OnBoarding/Form', PersonInfo)
