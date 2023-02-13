@@ -14,7 +14,7 @@ namespace HRSystem.DAO
             _dbContext= dbContext;
         }
 
-        public void InsertForm(Person person) {
+        public async Task InsertForm(Person person) {
 
             using var transaction = _dbContext.Database.BeginTransaction();
 
@@ -22,7 +22,8 @@ namespace HRSystem.DAO
             {
                 
                 _dbContext.Persons.Update(person);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
+
                 Models.ApplicationWorkFlow? applicationWorkFlow = _dbContext.ApplicationWorkFlows.FirstOrDefault(a => person.Employee != null && a.EmployeeId == person.Employee.Id && a.Type == WorkflowType.OnBoarding.ToString());
                 if (applicationWorkFlow == null)
                 {
@@ -34,7 +35,7 @@ namespace HRSystem.DAO
                         Type = WorkflowType.OnBoarding.ToString(),
                     });
                 }
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 transaction.Commit();
             }
             catch (Exception ex) {

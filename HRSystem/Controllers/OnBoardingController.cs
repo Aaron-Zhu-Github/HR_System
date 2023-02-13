@@ -51,7 +51,7 @@ namespace HRSystem.Controllers
 
         //Sync Action test
         [HttpPost("Form")]
-        public IActionResult AddForm([FromBody] Person person)
+        public async Task<IActionResult> AddForm([FromBody] Person person)
         {
             int personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
             person.Id = personId;
@@ -66,7 +66,7 @@ namespace HRSystem.Controllers
                     contact.PersonId= personId;
                 }
             }
-            _onBoardingDAO.InsertForm(person);
+            await _onBoardingDAO.InsertForm(person);
             return Ok(new {message="Form insert succeed"});
         }
 

@@ -5,6 +5,7 @@ import { map, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../shared/auth.service';
 import { AvatarService } from '../shared/avatar.service';
+import { CommentService } from '../shared/comment.service';
 import { StatusService } from '../shared/status.service';
 
 @Component({
@@ -17,13 +18,15 @@ export class HomeComponent {
   status:string=''
   name!: string;
   avatar!: string;
-  constructor(private avatarService:AvatarService,private authService: AuthService, private http: HttpClient, private router: Router, private statusService: StatusService) {
+  comment!: string;
+  documentComment!: { title: string; comment: string; }[];
+  constructor(private commentService:CommentService,private avatarService:AvatarService,private authService: AuthService, private http: HttpClient, private router: Router, private statusService: StatusService) {
     this.statusService.getStatus().subscribe(res => {
       if (res === 'Open') {
         this.router.navigate(['/OnBoarding']);
       }
       this.status = res;
-      // console.log(this.status);
+      console.log(this.status);
     });
 
     this.statusService.getName().subscribe(name => {
@@ -39,6 +42,13 @@ export class HomeComponent {
     this.authService.getRole().subscribe(role => {
       this.role = role;
     });   
+    this.commentService.getComment().subscribe(comment => {
+      this.comment = comment;
+    });
+    
+    this.commentService.getDocumentComment().subscribe(documentComment => {
+      this.documentComment = documentComment;
+    });
   }
 
   onAvatarPathEmitted(value:string){

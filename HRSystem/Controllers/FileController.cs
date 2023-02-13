@@ -145,6 +145,25 @@
             return Ok(files);
         }
 
+        [HttpDelete("/api/file")]
+        public async Task<IActionResult> Delete(string title)
+        {
+            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            if (employee == null || employee.Id == 0)
+            {
+                return BadRequest(new { message = "fail to find employee" });
+            }
+            var files = await _dbContext.PersonalDocuments.FirstOrDefaultAsync(pd => pd.EmployeeId == employee.Id && pd.Title == title);
+            if (files == null)
+            {
+                return BadRequest(new { message = "fail to find file" });
+            }
+            _dbContext.PersonalDocuments.Remove(files);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpGet("/api/requiredfile")]
         public async Task<IActionResult> GetRequiredFiles()
         {

@@ -54,11 +54,12 @@ export class OnBoardingInsertFormComponent implements OnInit {
         visaStartDate:['', Validators.required] || new Date(),
         visaEndDate:['', Validators.required] || new Date(),
         hasDriverLicense: [false],
-        driverLisence:['', Validators.required],
-        driverLisence_ExpirationDate:['', Validators.required] || new Date(),
+        driverLisence:[''],
+        driverLisence_ExpirationDate:[''] || null,
         //Embedded visaStatus formGroup
         visaStatus: this.visaStatus = this.fbuild.group({
           visaType:['', Validators.required],
+          otherVisaType:[''] || null,
           active:[null, Validators.required],
           modificationDate:['', Validators.required] || new Date(),
           createUser:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -93,13 +94,14 @@ export class OnBoardingInsertFormComponent implements OnInit {
       Employee:{HouseId: this.applicationForm.value.employee.houseId, 
                 car: this.applicationForm.value.employee.car,
                 title: this.applicationForm.value.employee.title,
+                avatar: this.applicationForm.value.employee.avatar || 'default.png',
                 startDate: this.applicationForm.value.employee.startDate || null,
                 endDate: this.applicationForm.value.employee.endDate || null,   
                 visaStartDate: this.applicationForm.value.employee.visaStartDate || null,
                 visaEndDate: this.applicationForm.value.employee.visaEndDate || null,
                 driverLisence: this.applicationForm.value.employee.driverLisence,
                 driverLisence_ExpirationDate: this.applicationForm.value.employee.driverLisence_ExpirationDate || null,
-                visaStatus:{ visaType: this.applicationForm.value.employee.visaStatus.visaType,
+                visaStatus:{ visaType: this.applicationForm.value.employee.visaStatus.visaType === "Other" ? this.applicationForm.value.employee.visaStatus.otherVisaType : this.applicationForm.value.employee.visaStatus.visaType,
                              active: this.applicationForm.value.employee.visaStatus.active || true,
                              modificationDate: this.applicationForm.value.employee.visaStatus.modificationDate,
                              createUser: this.applicationForm.value.employee.visaStatus.createUser}
@@ -155,6 +157,9 @@ export class OnBoardingInsertFormComponent implements OnInit {
     if(PersonInfo.Address.stateAbbr == null || PersonInfo.Address.stateAbbr == ""){
       alert("Please insert your address state name abbreviation");
       return false;
+    }
+    if(PersonInfo.Address.stateAbbr.length >5){
+      alert("State Abbreviation length must not exceed 5.")
     }
     // if(PersonInfo.Employee.HouseId <= 0 || PersonInfo.Employee.HouseId == ""){
     //   alert("Please insert your employee house ID");
@@ -256,7 +261,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
       this.applicationForm.patchValue({employee:{endDate: new Date()}});
       this.applicationForm.patchValue({employee:{visaStatus:{createUser: 999}}});
       this.applicationForm.patchValue({employee:{visaStatus:{modificationDate: new Date()}}});
-      this.applicationForm.patchValue({avatar: "default.png"});
+      this.applicationForm.patchValue({employee:{avatar: "default.png"}});
     },
     error => console.error(error));
   }

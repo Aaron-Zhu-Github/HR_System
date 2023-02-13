@@ -105,7 +105,17 @@
                 <div [formGroup]="visaStatus">
                   <div class="form-group">
                     <label for="visaType">visaType</label>
-                    <input type="text" class="form-control" formControlName="visaType" id="visaType" placeholder="Please enter your visaType">
+                    <select class="form-control" formControlName="visaType" id="visaType">
+                      <option value="H1-B">H1-B</option>
+                      <option value="L2">L2</option>
+                      <option value="F1(CPT/OPT)">F1(CPT/OPT)</option>
+                      <option value="H4">H4</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div *ngIf="applicationForm.get('employee')?.get('visaStatus')?.get('visaType')?.value === 'Other'" class="form-group">
+                    <label for="otherVisaType">Please specify the work authorization:</label>
+                    <input type="text" class="form-control" formControlName="otherVisaType" id="otherVisaType">
                   </div>
                   <!-- <div class="form-group">
                     <label for="active">Active</label>

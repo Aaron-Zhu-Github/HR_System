@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { v4 as uuidv4 } from 'uuid';
 import { VisaStatus } from '../enum/visa-status';
+import { FileService } from '../shared/file.service';
 import { VisaService } from '../shared/visa.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class FileUploadComponent {
   @Input() nextVisaStatus:string= VisaStatus.Unknown
   @Output() fileUploaded = new EventEmitter<any>();
 
-  constructor(private http: HttpClient, private router:Router,private visaService:VisaService) { }
+  constructor(private http: HttpClient, private router:Router,private visaService:VisaService,private fileService: FileService) { }
   private selectedFile!: File;
   componentId!: string;
 
@@ -47,6 +48,9 @@ export class FileUploadComponent {
             console.log(response);
             // (document.querySelector("input[type='file']") as HTMLInputElement).value = "";
             (document.querySelector("input[id='"+this.componentId+"']") as HTMLInputElement).value = "";
+            alert('file uploaded');
+            this.fileService.getFiles();
+            this.onFileUpload();
           },
           (err) => {
             alert(err.error.message)
@@ -59,7 +63,9 @@ export class FileUploadComponent {
         }
     }
   }
-
- 
+  onFileUpload() {
+    // logic to upload file
+    this.fileUploaded.emit();
+  }
 }
 

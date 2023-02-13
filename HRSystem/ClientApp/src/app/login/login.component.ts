@@ -9,6 +9,8 @@ import { StatusService } from '../shared/status.service';
 import { switchMap } from 'rxjs';
 import { VisaService } from '../shared/visa.service';
 import { AvatarService } from '../shared/avatar.service';
+import { statusResponse } from '../shared/response';
+import { CommentService } from '../shared/comment.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,7 @@ import { AvatarService } from '../shared/avatar.service';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private avatarService:AvatarService,private visaService:VisaService,private statusService:StatusService,private authService:AuthService,private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private commentService:CommentService,private avatarService:AvatarService,private visaService:VisaService,private statusService:StatusService,private authService:AuthService,private router:Router,private fbuild:FormBuilder,private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   loginForm!: FormGroup;
 
@@ -55,6 +57,8 @@ export class LoginComponent implements OnInit {
         this.visaService.setVisaEndDate(res.visaEndDate);
         this.visaService.setVisaEndDate(res.visaEndDate);
         this.avatarService.setAvatar(res.avatar);
+        this.commentService.setComment(res.comment);
+        this.commentService.setDocumentComment(res.documentComment);
         if (res.status == 'Open') {
           this.router.navigate(['/OnBoarding'])
         } else {
@@ -72,14 +76,4 @@ interface TokenResponse {
   message:string;
   accessToken: string;
   role:string;
-}
-
-
-interface statusResponse {
-  status: string;
-  visaType:string;
-  visaStatus:string;
-  name:string;
-  visaEndDate:Date;
-  avatar:string;
 }

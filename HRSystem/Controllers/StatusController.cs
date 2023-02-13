@@ -66,6 +66,9 @@
                 }
 
                 Models.ApplicationWorkFlow? visaStatus = await _dbContext.ApplicationWorkFlows.FirstOrDefaultAsync(a => a.EmployeeId == employee.Id && a.Type == WorkflowType.Visa.ToString());
+
+                var personalDocuments = await _dbContext.PersonalDocuments.Where(pd => pd.EmployeeId == employee.Id).OrderByDescending(pd => pd.CreatedDate).ToListAsync();
+
                 return Ok(new StatusResponse()
                 {
                     Status = applicationWorkFlow?.Status ?? "Open",
@@ -74,6 +77,8 @@
                     Name = person.PreferredName != null && person.PreferredName != "" ? person.PreferredName : person.Firstname,
                     VisaEndDate = employee.VisaEndDate?? DateTime.MinValue,
                     Avatar = employee.Avatar,
+                    Comment = applicationWorkFlow?.Comments??"",
+                    DocumentComment = personalDocuments.Select(pd=>new {Title = pd.Title,Comment = pd.Comment}),
                 });
             }
             catch(Exception ex)
@@ -83,7 +88,7 @@
             }
         }
 
-        [HttpPost("/api/UpdateApplicationStatus")]
+        [HttpPatch("/api/ApplicationStatus")]
         public async Task<ActionResult> UpdateApplicationStatus([FromQuery] string status)
         {
             try

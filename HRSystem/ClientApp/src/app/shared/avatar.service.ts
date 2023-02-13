@@ -10,7 +10,7 @@ export class AvatarService {
   constructor() { }
 
   setAvatar(avatar: string) {
-    console.log(avatar);
+    // console.log(avatar);
     this.avatarSubject.next(avatar);
   }
 

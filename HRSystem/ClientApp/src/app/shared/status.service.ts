@@ -1,6 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { VisaStatus } from '../enum/visa-status';
+import { environment } from 'src/environments/environment';
+import { AvatarService } from './avatar.service';
+import { statusResponse } from './response';
+import { VisaService } from './visa.service';
 
 @Injectable({
   providedIn: 'root'
