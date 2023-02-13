@@ -106,7 +106,7 @@
         [HttpPost("/api/file/AddComment")]
         public async Task<IActionResult> AddComment(CommentRequest commentRequest)
         {
-            var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var personId = commentRequest.PersonId;
             var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
             if (employee == null || employee.Id == 0)
             {
@@ -130,6 +130,19 @@
                 scope.Complete();
             }
             return Ok(new { message = "Comment added" });
+        }
+
+        [HttpGet("/api/file/{personId}")]
+        public async Task<IActionResult> GetByPersonId(int personId)
+        {
+            //var personId = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var employee = await _dbContext.Employees.Where(e => e.PersonId == personId).FirstOrDefaultAsync();
+            if (employee == null || employee.Id == 0)
+            {
+                return BadRequest(new { message = "fail to find employee" });
+            }
+            var files = await _dbContext.PersonalDocuments.Where(pd => pd.EmployeeId == employee.Id).Select(x => new { Path = x.Path, Title = x.Title }).ToListAsync();
+            return Ok(files);
         }
 
         [HttpGet("/api/file/GetAll")]

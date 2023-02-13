@@ -101,7 +101,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
       // { path: 'counter', component: CounterComponent },
       // { path: 'fetch-data', component: FetchDataComponent },
       {path: 'VisaStatus', component: VisaStatusManagementComponent, canActivate: [AuthGuard,ApprovedStatusGuard,VisaStatusGuard]},
-      {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard,ApprovedStatusGuard]},
+      {path: 'PersonalInformation', component: PersonInfoComponent, canActivate: [AuthGuard]},
       { path: 'House', component: HouseComponent, canActivate: [AuthGuard, ApprovedStatusGuard] },
       { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'Documentation', component: DocumentationComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},

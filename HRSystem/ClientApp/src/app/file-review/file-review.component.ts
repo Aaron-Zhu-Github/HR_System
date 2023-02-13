@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faImage, faFile, faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import { Observable } from 'rxjs';
@@ -19,9 +19,10 @@ export class FileReviewComponent {
   files!: Observable<filesResponse[]>;
   fileUrl: string = environment.FileURL;
   comment: string = '';
+  @Input() personId:number = 0;
 
   ngOnInit() {
-    this.files = this.http.get<filesResponse[]>(environment.API_URL + "api/file/GetAll");
+    this.files = this.http.get<filesResponse[]>(environment.API_URL + "api/file/"+this.personId);
     this.files.subscribe(
       (res) => {
         // console.log("Response from API", res);
@@ -41,8 +42,9 @@ export class FileReviewComponent {
     return filename.substr(filename.lastIndexOf('.') + 1);
   }
 
-  onAddComment(fileTitle: string, fileComment: string) {
+  onAddComment(fileTitle: string, fileComment: string, personId:number) {
     const commentData = {
+      personId : personId,
       title: fileTitle,
       comment: fileComment
     };
