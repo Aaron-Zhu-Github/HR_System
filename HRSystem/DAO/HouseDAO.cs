@@ -175,6 +175,7 @@ namespace HRSystem.DAO
                        select new EmployeeHouseHR
                        {
                            EmployeeID =Employee.Id,
+                           PersonID = Employee.PersonId,
                            Name = Person.Firstname,
                            Phone = Person.CellPhone,
                            Email = Person.Email,

@@ -55,6 +55,7 @@ interface Facility {
 interface EmployeeHouseHR {
   id: number,
   employeeID: number,
+  personID: number,
   name: string,
   phone: string,
   email: string,

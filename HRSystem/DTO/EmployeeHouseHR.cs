@@ -9,7 +9,7 @@ namespace HRSystem.DTO
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Car { get; set; }
-        
+        public int PersonID { get; internal set; }
     }
 }
 

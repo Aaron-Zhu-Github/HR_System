@@ -111,7 +111,7 @@ export class OnBoardingInsertFormComponent implements OnInit {
        ContactList: this.applicationForm.value.contacts,
     };
     console.log(PersonInfo);
-    console.log(this.applicationForm.value.employee.visaStatus.isUSResident?this.applicationForm.value.employee.visaStatus.usResidenceType:( this.applicationForm.value.employee.visaStatus.visaType === "Other" ? this.applicationForm.value.employee.visaStatus.otherVisaType : this.applicationForm.value.employee.visaStatus.visaType));
+
     if(!this.ValidateInputs(PersonInfo)){ return; }
     
     this.http.post('https://localhost:5401/api/OnBoarding/Form', PersonInfo)

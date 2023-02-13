@@ -42,7 +42,11 @@
             <td>{{ employee.phone}}</td>
             <td>{{ employee.email }}</td>
             <td>{{ employee.car }}</td>
-            <td><a type="submit" class="btn btn-primary" (click)="openProfile()">View Employee Profile</a></td>
+            <td>
+                <input type='button' class="btn btn-primary" value='Detail' 
+                  [routerLink]="['/HR/Hire/Review', employee.personID, 0]" />
+            </td>
+            <!-- <td><a type="submit" class="btn btn-primary" (click)="openProfile()">View Employee Profile</a></td> -->
         </tr>
     </tbody>
 </table>
