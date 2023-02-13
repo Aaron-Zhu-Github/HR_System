@@ -76,6 +76,12 @@ GO
 INSERT INTO DigitalDocument (Type, Required, TemplateLocation, Description)
 VALUES ('Visa', 1, 'visa.jpg', 'Visa document sample');
 
+INSERT INTO DigitalDocument (Type, Required, TemplateLocation, Description)
+VALUES ('Driver License', 1, 'Driver_License.png', 'Driver License sample');
+
+INSERT INTO DigitalDocument (Type, Required, TemplateLocation, Description)
+VALUES ('Work Authorization', 1, 'Work_Authorization.jpg', 'Work Authorization sample');
+
 INSERT INTO Employee
 (PersonId, Title, ManagerID, StartDate, EndDate, Avatar, Car, VisaStatusID, VisaStartDate, VisaEndDate, DriverLisence, DriverLisence_ExpirationDate, HouseID)
 VALUES
