@@ -1,7 +1,7 @@
 <h1 id="tableLabel">House List</h1>
 
 <br />
-<h3>House Details</h3>
+<h1>House Details</h1>
 <p>Please find the your house address and roommates in the list below</p>
 
 <p *ngIf="!houses"><em>Loading...</em></p>
@@ -26,7 +26,7 @@
 
 <br />
 <br />
-<h3>Report Facility Issue</h3>
+<h1>Report Facility Issue</h1>
 <p>If you have a facility problem in your house, please create a report here.</p>
 <div class="form-group">
     <form [formGroup]="reportForm">
@@ -43,7 +43,7 @@
 
 <br />
 <br />
-<h3>Report history</h3>
+<h1>Report history</h1>
 <p>Please find the your facility reports in the list below</p>
 
 <p *ngIf="!reports"><em>Loading...</em></p>
@@ -55,7 +55,7 @@
             <th>Description</th>
             <th>ReportDate</th>
             <th>Status</th>
-            <th>Report Details</th>
+            <th>Comments</th>
         </tr>
     </thead>
     <tbody>
@@ -66,7 +66,7 @@
             <td>{{ report.reportDate }}</td>
             <td>{{ report.status }}</td>
             <!--pop-up comment window (1. connect to comment component, 2 pass reportId to comment component-->
-            <td><a type="submit" class="btn btn-primary" (click)="openDetails(report.id)">View Details</a></td>
+            <td><a type="submit" class="btn btn-primary" (click)="openDetails(report.id)">View Comments</a></td>
         </tr>
     </tbody>
 </table>

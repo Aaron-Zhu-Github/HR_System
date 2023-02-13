@@ -21,7 +21,7 @@ export class HouseComponent
     http.get<HouseDetail[]>('https://localhost:5401/houseDetail').subscribe
       (data => { this.houses = data; }, error => console.error(error));
 
-    //Show Reports
+    //Show Reports History
     http.get<FacilityReport[]>('https://localhost:5401/viewHistoryReportById').subscribe
       (data => { this.reports = data; }, error => console.error(error));
   }

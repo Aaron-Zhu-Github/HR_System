@@ -4,11 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  selector: 'app-comment-hr',
+  templateUrl: './comment-hr.component.html',
+  styleUrls: ['./comment-hr.component.css']
 })
-export class CommentComponent implements OnInit {
+export class CommentHRComponent implements OnInit {
   reportId!: number;
   detailId!: number;
   //public editForm!: FormGroup;
@@ -19,7 +19,7 @@ export class CommentComponent implements OnInit {
   editForm!: FormGroup<any>;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private formBuilder: FormBuilder) {
-  
+
   }
 
   ngOnInit(): void {
@@ -46,10 +46,10 @@ export class CommentComponent implements OnInit {
     this.reportId = this.route.snapshot.params['id'];
     const comment = this.reportForm.value.comment;
 
-    const endpoint = ('https://localhost:5401/addComment/'+this.reportId);
+    const endpoint = ('https://localhost:5401/addComment/' + this.reportId);
     console.log(endpoint);
 
-    this.http.post(endpoint, {comment})
+    this.http.post(endpoint, { comment })
       .subscribe(
         (response) => {
           this.reportForm.controls.comment.setValue('');
@@ -60,13 +60,13 @@ export class CommentComponent implements OnInit {
         }
       )
   }
-   // Edit comment
+  // Edit comment
   onUpdate(detailId: number) {
     const comment = this.editForm.value.comment;
     const endpoint = ('https://localhost:5401/editComment/' + detailId);
     console.log(endpoint);
 
-    this.http.post(endpoint, {comment})
+    this.http.post(endpoint, { comment })
       .subscribe(
         (response) => {
           this.editForm.controls.comment.setValue('');
@@ -78,50 +78,7 @@ export class CommentComponent implements OnInit {
       )
   }
 
-  // Edit comment
-  //populateForm() {
-  //  this.editForm.patchValue({
-  //    comment: this.currentComment.comment
-  //  });
-  //}
-
-  //cancelEdit() {
-  //  if (window.confirm('Are you sure you want to discard all your changes?')) {
-  //    this.toggleEdit();
-  //  }
-  //}
-
-  //toggleEdit() {
-  //  this.editMode = !this.editMode;
-  //}
-
-  //onUpdate(detailId :number) {
-  //  const comment = this.editForm.value.comment;
-  //  const endpoint = ('https://localhost:5401/editComment/' + detailId);
-  //  console.log(endpoint);
-
-  //  this.http.post(endpoint, { comment })
-  //    .subscribe(
-  //    //  data => {
-  //    //  console.log(this.comment);
-  //    //  this.editMode = false;
-  //    //},
-  //    //  error => console.error(error)
-  //      (response) => {
-  //        this.editForm.controls.comment.setValue('');
-  //        alert("succeeded");
-  //      },
-  //      (error) => {
-  //        alert(error.error.message)
-  //      }
-
-  //    );
-
-  //}
 }
-
-  
-
 
 //Comments
 interface FacilityReportDetail {

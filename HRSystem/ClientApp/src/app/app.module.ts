@@ -24,7 +24,9 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 
 import { HouseComponent } from './house/house.component';
-
+import { CommentComponent } from './house/comment/comment.component';
+import { DetailComponent } from './hrhouse-management/detail/detail.component';
+import { CommentHRComponent } from './hrhouse-management/detail/comment-hr/comment-hr.component';
 
 
 import { HireComponent } from './hire/hire.component';
@@ -38,7 +40,7 @@ import { HREmployeeProfileComponent } from './hremployee-profile/hremployee-prof
 import { HRVisaStatusManagementComponent } from './hrvisa-status-management/hrvisa-status-management.component';
 import { HRHouseManagementComponent } from './hrhouse-management/hrhouse-management.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-import { CommentComponent } from './house/comment/comment.component';
+
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { DocumentPreviewComponent } from './document-preview/document-preview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -67,6 +69,8 @@ import { ApplicationReviewComponent } from './hire/application-review/applicatio
     LoginComponent,
     HouseComponent,
     CommentComponent,
+    CommentHRComponent,
+    DetailComponent,
     HREmployeeProfileComponent,
     HRHouseManagementComponent,
     HRVisaStatusManagementComponent,
@@ -112,7 +116,10 @@ import { ApplicationReviewComponent } from './hire/application-review/applicatio
       { path: 'HR/EmployeeProfile', component: HREmployeeProfileComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/VisaStatusManagement', component: HRVisaStatusManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/HouseManagement', component: HRHouseManagementComponent, canActivate: [AuthGuard,RoleGuard] },
-      { path: 'Register', component: RegisterComponent},
+      { path: 'Register', component: RegisterComponent },
+      { path: 'comment/:id', component: CommentComponent },
+      { path: 'detail/:id', component: DetailComponent },
+      { path: 'comment-hr/:id', component: CommentHRComponent } 
 
     ]),
     BrowserAnimationsModule

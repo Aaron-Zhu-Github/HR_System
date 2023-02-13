@@ -5,6 +5,8 @@ namespace HRSystem.DTO
 	{
         public int ID { get; set; }
 
+        public int HouseID { get; set; }
+
         public string HouseAddress { get; set; }
 
         public string Landlord { get; set; }
