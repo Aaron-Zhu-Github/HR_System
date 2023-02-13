@@ -136,7 +136,7 @@
                 </div>
                 
                 <div *ngIf="applicationForm.get('employee')?.get('hasDriverLicense')?.value">
-                  <app-file-upload [title]="'Driver License'"></app-file-upload>
+                  <!-- <app-file-upload [title]="'Driver License'"></app-file-upload> -->
                   <div class="form-group">
                     <label for="driverLisence">Driver License</label>
                     <input type="text" class="form-control" formControlName="driverLisence" id="driverLisence" placeholder="Please enter your driver license">

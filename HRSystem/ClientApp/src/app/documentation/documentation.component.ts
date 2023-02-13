@@ -34,9 +34,9 @@ export class DocumentationComponent implements OnInit {
   }
 
   onApplicationSubmit() {
-    this.http.patch(environment.API_URL + "api/ApplicationStatus?status=pending", {}).subscribe(
+    this.http.patch(environment.API_URL + "api/ApplicationStatus?status=Pending", {}).subscribe(
       (res) => {
-        this.statusService.setStatus("pending");
+        this.statusService.setStatus("Pending");
         this.updateStatus();
         this.router.navigate(['home']);
       },
