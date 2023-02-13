@@ -7,9 +7,12 @@
     <li>Middle Name: {{nameSec.person.middlename}}</li>
     <li>Preferred Name: {{nameSec.person.preferredName}}</li>
     <li>Gender: {{nameSec.person.gender}}</li>
+    <li>Date Of Birth: {{nameSec.person.dob}}</li>
     <li>SSN: ****-**-{{ssn_last4}}</li>
 </ul>
-<button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+<ng-container *ngIf="!isHR">
+  <button [disabled]="isHR" class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+</ng-container>
 </div>
 
 
@@ -32,7 +35,7 @@
     </div>
     <div class="form-group">
       <label for="dob">Date of Birth</label>
-      <input type="text" formControlName="dob" class="form-control">
+      <input type="date" formControlName="dob" class="form-control">
     </div>
     <div class="form-group">
       <label for="gender">Gender</label>

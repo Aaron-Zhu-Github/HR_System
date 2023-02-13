@@ -2,15 +2,18 @@
 
 <div *ngIf="!editMode && employmentSec">
     <ul *ngIf="employmentSec">
-        <li>Title: {{employmentSec.title}}</li>
-        <li>Work Authorization Start Date: {{employmentSec.visaStartDate}}</li>
-        <li>Work Authorization End Date: {{employmentSec.visaEndDate}}</li>
-        <li>Employment Start Date: {{employmentSec.visaStartDate}}</li>
-        <li>Employment End Date: {{employmentSec.visaEndDate}}</li>
+        <li>Title: {{employmentSec.employee.title}}</li>
+        <li>Work Authorization: {{employmentSec.visaType}}</li>
+        <li>Work Authorization Start Date: {{employmentSec.employee.visaStartDate}}</li>
+        <li>Work Authorization End Date: {{employmentSec.employee.visaEndDate}}</li>
+        <li>Employment Start Date: {{employmentSec.employee.visaStartDate}}</li>
+        <li>Employment End Date: {{employmentSec.employee.visaEndDate}}</li>
     </ul>
 
-    <button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
-</div>
+    <ng-container *ngIf="!isHR">
+      <button [disabled]="isHR" class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+    </ng-container>
+  </div>
 
 <form  *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="form-group">

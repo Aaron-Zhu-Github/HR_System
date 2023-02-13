@@ -19,9 +19,18 @@ export class FileReviewComponent {
   files!: Observable<filesResponse[]>;
   fileUrl: string = environment.FileURL;
   comment: string = '';
-  @Input() personId:number = 0;
+  
+  @Input() pid!:string;
+  personId:number = 0;
+  
 
   ngOnInit() {
+    if (this.pid && !isNaN(Number(this.pid))) {
+      this.personId = Number(this.pid);
+    } else {
+      console.log("personId is NaN");
+    }
+
     this.files = this.http.get<filesResponse[]>(environment.API_URL + "api/file/"+this.personId);
     this.files.subscribe(
       (res) => {
@@ -36,6 +45,7 @@ export class FileReviewComponent {
         console.error("Error while fetching files", error);
       }
     );
+    
   }
 
   getFileExtension(filename: string) {

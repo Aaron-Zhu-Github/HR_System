@@ -48,6 +48,7 @@ import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
 import { CommonModule } from '@angular/common';
 import { DocumentTemplateComponent } from './document-template/document-template.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { ApplicationReviewComponent } from './hire/application-review/application-review.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
     RegisterComponent,
     EmergencySecComponent,
     DocSecComponent,
+    ApplicationReviewComponent,
 
   ],
   imports: [
@@ -106,10 +108,12 @@ import { DocumentationComponent } from './documentation/documentation.component'
       { path: 'OnBoarding', component: OnBoardingInsertFormComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'Documentation', component: DocumentationComponent , canActivate: [AuthGuard,NotSubmittedStatusGuard]},
       { path: 'HR/Hire', component: HireComponent, canActivate: [AuthGuard,RoleGuard] },
+      { path: 'HR/Hire/Review/:pid/:applicationid', component: ApplicationReviewComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/EmployeeProfile', component: HREmployeeProfileComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/VisaStatusManagement', component: HRVisaStatusManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'HR/HouseManagement', component: HRHouseManagementComponent, canActivate: [AuthGuard,RoleGuard] },
       { path: 'Register', component: RegisterComponent},
+
     ]),
     BrowserAnimationsModule
   ],

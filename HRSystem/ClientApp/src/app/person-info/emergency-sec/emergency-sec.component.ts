@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-emergency-sec',
@@ -14,7 +14,8 @@ export class EmergencySecComponent implements OnInit {
   public editForm!: FormGroup;
   public emergencyForm!:FormGroup;
   
-  @Input() pid!: number;
+  @Input() isHR!: boolean;
+  @Input() pid!: string;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
     this.editForm = this.formBuilder.group({
@@ -35,16 +36,16 @@ export class EmergencySecComponent implements OnInit {
   populateForm(){
     for (let item of this.emergencySec.emergencyContacts){
       this.addressFormGetter.push(this.formBuilder.group({
-        addressLine1: [item.address.addressLine1],
+        addressLine1: [item.address.addressLine1,Validators.required],
         addressLine2:[item.address.addressLine2],
-        city: [item.address.city],
-        zipcode: [item.address.zipcode],
-        stateName: [item.address.stateName],
-        stateAbbr: [item.address.stateAbbr] }));
+        city: [item.address.city, Validators.required],
+        zipcode: [item.address.zipcode, Validators.required],
+        stateName: [item.address.stateName, Validators.required],
+        stateAbbr: [item.address.stateAbbr, Validators.required] }));
       
         this.personFormGetter.push(this.formBuilder.group({
-        firstname: [item.person.firstname],
-        lastname: [item.person.lastname],
+        firstname: [item.person.firstname, Validators.required],
+        lastname: [item.person.lastname, Validators.required],
         middlename: [item.person.middlename],
         preferredName: [item.person.preferredName],
         }));
@@ -52,11 +53,11 @@ export class EmergencySecComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getEmergencySec(this.pid);
+    this.getEmergencySec();
   }
 
-  getEmergencySec(pid: number) {
-    this.http.get<EmergencySec>('https://localhost:5401/api/PersonalInformation/emergencycontact').subscribe(data => {
+  getEmergencySec() {
+    this.http.get<EmergencySec>('https://localhost:5401/api/PersonalInformation/emergencycontact/?pid='+this.pid.toString()).subscribe(data => {
       this.emergencySec = data;
     });
   }

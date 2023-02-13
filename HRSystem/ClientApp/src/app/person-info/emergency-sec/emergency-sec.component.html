@@ -3,7 +3,7 @@
 <ng-container *ngIf="!editMode && emergencySec?.emergencyContacts">
     <div *ngFor="let item of emergencySec?.emergencyContacts; let i = index">
         <ul>
-            <h5>Emergency Contact {{i+1}}</h5>
+            <h4>Emergency Contact {{i+1}}</h4>
             
             <li>First Name: {{item.person.firstname}}</li>
             <li>Last Name: {{item.person.lastname}}</li>
@@ -17,8 +17,10 @@
             <li>State Name: {{item.address.stateName}}</li>
         </ul>
     </div>
-    <button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
-</ng-container>
+    <ng-container *ngIf="!isHR">
+      <button [disabled]="isHR" class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+    </ng-container>
+  </ng-container>
 
 
 <form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">

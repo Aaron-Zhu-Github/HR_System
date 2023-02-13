@@ -8,12 +8,13 @@
 <app-avatar-upload (avatarPathEmitter)="onAvatarPathEmitted($event)"></app-avatar-upload> -->
 <img class="img-fluid" src="{{fileUrl+ avatar}}" alt="avatar" width="128" height="128">
 <p>Welcome to BeaconFire Solution</p>
-<ng-container *ngIf="status=='pending'">
+<ng-container *ngIf="status=='Pending'">
     <p>Waiting for HR review, please check back later.</p>
 </ng-container>
 
-<ng-container *ngIf="status=='rejected'">
+<ng-container *ngIf="status=='Rejected'">
     <p>Application Rejected, please check comment and submit again after fix the issue.</p>
+    <button class="btn btn-primary" [routerLink]="['/PersonalInformation']">View Your Information</button>
 </ng-container>
 
 <ng-container *ngIf="status!='Approved'">

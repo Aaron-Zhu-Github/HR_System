@@ -18,7 +18,7 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
           </li> -->
-            <ng-container *ngIf="role=='Employee' && status == 'Approved'">
+            <ng-container *ngIf="role=='Employee' && status == 'Completed'">
               <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="visaType!='Citizen' &&visaType!='GreenCard'">
                 <a class="nav-link text-dark" [routerLink]="['/VisaStatus']">VisaStatus</a>
               </li>

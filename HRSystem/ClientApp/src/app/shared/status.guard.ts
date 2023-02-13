@@ -66,7 +66,7 @@ export class ApprovedStatusGuard implements CanActivate {
             this.router.navigate(['/HRhome']);
             return false;
           }
-          if (status !== 'Approved') {
+          if (status !== 'Completed') {
             this.router.navigate(['/home']);
             return false;
           }

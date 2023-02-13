@@ -74,6 +74,7 @@ namespace HRSystem.Models
 
 
         //EF realtionship
+        [JsonIgnore]
         public virtual ApplicationWorkFlow? ApplicationWorkFlow { get; set; }
 
         //       public virtual Person? Persons { get; set; }

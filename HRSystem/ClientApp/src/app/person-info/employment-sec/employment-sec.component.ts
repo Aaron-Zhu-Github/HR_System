@@ -11,6 +11,8 @@ export class EmploymentSecComponent implements OnInit {
   employmentSec!:EmploymentSec
   public editMode = false;
   public editForm!: FormGroup; 
+  @Input() isHR!: boolean;
+  @Input() pid!: string;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
     this.editForm = this.formBuilder.group({
@@ -27,7 +29,7 @@ export class EmploymentSecComponent implements OnInit {
   }
 
   getEmploymentSec(){
-    this.http.get<EmploymentSec>('https://localhost:5401/api/PersonalInformation/employment').subscribe(data => {
+    this.http.get<EmploymentSec>('https://localhost:5401/api/PersonalInformation/employment/?pid='+this.pid.toString()).subscribe(data => {
       this.employmentSec = data;
       console.log(data);
     });
@@ -35,20 +37,20 @@ export class EmploymentSecComponent implements OnInit {
 
   populateForm() {
     this.editForm.patchValue({
-      startDate: this.employmentSec.startDate,
-      lastnendDateame: this.employmentSec.endDate,
-      visaStartDate: this.employmentSec.visaStartDate,
-      visaEndDate: this.employmentSec.visaEndDate,
-      title: this.employmentSec.title
+      startDate: this.employmentSec.employee.startDate,
+      endDate: this.employmentSec.employee.endDate,
+      visaStartDate: this.employmentSec.employee.visaStartDate,
+      visaEndDate: this.employmentSec.employee.visaEndDate,
+      title: this.employmentSec.employee.title
     });
   }
 
   onSubmit(){
-    this.employmentSec.startDate = this.editForm.value.startDate;
-    this.employmentSec.endDate = this.editForm.value.endDate;
-    this.employmentSec.visaStartDate = this.editForm.value.visaStartDate;
-    this.employmentSec.visaEndDate = this.editForm.value.visaEndDate;
-    this.employmentSec.title = this.editForm.value.title;
+    this.employmentSec.employee.startDate = this.editForm.value.startDate;
+    this.employmentSec.employee.endDate = this.editForm.value.endDate;
+    this.employmentSec.employee.visaStartDate = this.editForm.value.visaStartDate;
+    this.employmentSec.employee.visaEndDate = this.editForm.value.visaEndDate;
+    this.employmentSec.employee.title = this.editForm.value.title;
 
     this.http.post<EmploymentSec>('https://localhost:5401/api/PersonalInformation/employment', this.employmentSec)
     .subscribe(data => {
@@ -71,10 +73,15 @@ export class EmploymentSecComponent implements OnInit {
   }
 }
 
-interface EmploymentSec {
+interface Employee {
   startDate: string,
   endDate: string,
   visaStartDate: string,
   visaEndDate: string,
   title: string
+}
+
+interface EmploymentSec {
+  employee: Employee,
+  visaType: string
 }

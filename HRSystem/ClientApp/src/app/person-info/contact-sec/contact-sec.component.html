@@ -9,8 +9,10 @@
         <li *ngIf="contactSec">Work Phone: {{contactSec.alternatePhone}}</li>
     </ul>
 
-    <button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
-</div>
+    <ng-container *ngIf="!isHR">
+      <button [disabled]="isHR" class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+    </ng-container>
+  </div>
 
 <form *ngIf="editMode" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="form-group">

@@ -3,12 +3,12 @@
 <ng-container *ngIf="!editMode">
     <div *ngFor="let item of addressSec?.addresses">
         <ul>
-            <h5 *ngIf="item.isSecondary">
+            <h4 *ngIf="item.isSecondary">
                 Secondary Address
-            </h5>
-            <h5 *ngIf="!item.isSecondary">
+            </h4>
+            <h4 *ngIf="!item.isSecondary">
                 Primary Address
-            </h5>
+            </h4>
             <li>Address Line 1: {{item.addressLine1}}</li>
             <li>Address Line 2: {{item.addressLine2}}</li>
             <li>City: {{item.city}}</li>
@@ -16,7 +16,9 @@
             <li>State Name: {{item.stateName}}</li>
         </ul>
     </div>
-    <button class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+    <ng-container *ngIf="!isHR">
+      <button [disabled]="isHR" class="btn btn-primary" (click)="toggleEdit(); populateForm()">Edit</button>
+    </ng-container>
 </ng-container>
 
 

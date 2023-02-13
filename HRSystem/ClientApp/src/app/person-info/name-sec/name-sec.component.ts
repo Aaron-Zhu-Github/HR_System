@@ -12,11 +12,13 @@ export class NameSecComponent implements OnInit {
   ssn_last4!:string;
   public editMode = false;
   public editForm!: FormGroup;
+  @Input() isHR!: boolean;
+  @Input() pid!: string;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     this.editForm = this.formBuilder.group({
-      firstname: [''],
-      lastname: [''],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       middlename: [''],
       preferredName: [''],
       dob: [''],
@@ -52,7 +54,7 @@ export class NameSecComponent implements OnInit {
   }
 
   getNameSec(){
-    this.http.get<NameSec>('https://localhost:5401/api/PersonalInformation/name').subscribe(data => {
+    this.http.get<NameSec>('https://localhost:5401/api/PersonalInformation/name/?pid='+this.pid.toString()).subscribe(data => {
       this.nameSec = data;
       this.ssn_last4 = this.nameSec?.person.ssn.substring(this.nameSec?.person.ssn.length-4);
       

@@ -69,17 +69,25 @@ namespace HRSystem.Services
         }
 
         //Employment sec
-        public Employee GetEmployeeSec(int pid)
+        public EmploymentSec GetEmployeeSec(int pid)
 		{
-            var res = new Employee();
-            res = _personInfoDAO.GetEmployee(pid);
-
+            var res = new EmploymentSec();
+            res.employee = _personInfoDAO.GetEmployee(pid);
+			if (res.employee != null)
+			{
+				int visaid = (int)res.employee.VisaStatusId;
+				res.visaType = _personInfoDAO.GetVisaStatus(visaid).VisaType;
+			}
+			
             return res;
         }
 
-        public void UpdateEmployeeSec(Employee employee)
+        public void UpdateEmployeeSec(EmploymentSec employmentSec)
         {
-            _personInfoDAO.UpdateEmployee(employee);
+			if (employmentSec != null && employmentSec.employee != null)
+			{
+                _personInfoDAO.UpdateEmployee(employmentSec.employee);
+            }
         }
 
         //Emergency Contact sec

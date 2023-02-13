@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PersonInfoComponent } from '../person-info.component'; 
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-address-sec',
@@ -13,6 +13,8 @@ export class AddressSecComponent implements OnInit {
   public editMode = false;
   public editForm!: FormGroup;
   public addressForm!: FormGroup;
+  @Input() isHR!: boolean;
+  @Input() pid!: string;
   
   constructor(private http: HttpClient,private formBuilder: FormBuilder) { 
     // this.addressForm = this.formBuilder.group({
@@ -39,12 +41,12 @@ export class AddressSecComponent implements OnInit {
     for (let address of this.addressSec.addresses){
       this.addressFormGetter.push(this.formBuilder.group({
         id: [address.id],
-        addressLine1: [address.addressLine1],
+        addressLine1: [address.addressLine1, Validators.required],
         addressLine2:[address.addressLine2],
-        city: [address.city],
-        zipcode: [address.zipcode],
-        stateName: [address.stateName],
-        stateAbbr: [address.stateAbbr],
+        city: [address.city, Validators.required],
+        zipcode: [address.zipcode, Validators.required],
+        stateName: [address.stateName, Validators.required],
+        stateAbbr: [address.stateAbbr, Validators.required],
         personId: [address.personId],
         isSecondary: [address.isSecondary]
         }));
@@ -56,7 +58,7 @@ export class AddressSecComponent implements OnInit {
   }
 
   getAddressSec() {
-    this.http.get<AddressSec>('https://localhost:5401/api/PersonalInformation/address').subscribe(data => {
+    this.http.get<AddressSec>('https://localhost:5401/api/PersonalInformation/address/?pid='+this.pid.toString()).subscribe(data => {
       this.addressSec = data;
       // this.populateForm();
 

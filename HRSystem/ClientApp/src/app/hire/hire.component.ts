@@ -10,6 +10,8 @@ import { emptyValidator } from '../empty.validator';
   styleUrls: ['./hire.component.css']
 })
 export class HireComponent {
+  public allApplication!: ApplicationWorkFlow[];
+
   constructor(private fbuild: FormBuilder,private http:HttpClient) { }
 
   tokenGenerateForm!: FormGroup<any>;
@@ -18,6 +20,8 @@ export class HireComponent {
     this.tokenGenerateForm = this.fbuild.group({
       email: ['', emptyValidator()],
     })
+
+    this.getAllOnboarding();
   }
 
   onSubmit() {
@@ -36,4 +40,27 @@ export class HireComponent {
         }
       )
   }
+
+  getAllOnboarding() {
+    this.http.get<any>('https://localhost:5401/api/HireReview/GetAllOnboardingApplication').subscribe(data => {
+      this.allApplication = data;
+    });
+  }
+
+}
+
+
+interface ApplicationWorkFlow {
+  id:number,
+  employeeId: number,
+  employee: Employee
+  createdDate: string,
+  modificationDate: string,
+  status: string,
+  comments: string,
+  type: string
+}
+
+interface Employee {
+  personId: number 
 }

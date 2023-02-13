@@ -29,9 +29,9 @@ namespace HRSystem.Controllers
 
 
         [HttpGet("name")]
-        public ActionResult<NameSec> GetNameSec()
+        public ActionResult<NameSec> GetNameSec(int pid=0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetNameSec(pid);
             if (model != null)
                 return Ok(model);
@@ -40,9 +40,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpGet("address")]
-        public ActionResult<AddressSec> GetAddressSec()
+        public ActionResult<AddressSec> GetAddressSec(int pid=0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetAddressSec(pid);
             if (model != null)
                 return Ok(model);
@@ -51,9 +51,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpGet("contact")]
-        public ActionResult<Person> GetContactSec()
+        public ActionResult<Person> GetContactSec(int pid = 0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetContactSec(pid);
             if (model != null)
                 return Ok(model);
@@ -62,9 +62,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpGet("employment")]
-        public ActionResult<Employee> GetEmployeeSec()
+        public ActionResult<EmploymentSec> GetEmployeeSec(int pid = 0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetEmployeeSec(pid);
             if (model != null)
                 return Ok(model);
@@ -73,9 +73,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpGet("emergencycontact")]
-        public ActionResult<EmergencyContactSec> GetEmergencyContactSec()
+        public ActionResult<EmergencyContactSec> GetEmergencyContactSec(int pid = 0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetEmergencyContactSec(pid);
             if (model != null)
                 return Ok(model);
@@ -84,9 +84,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpGet("document")]
-        public ActionResult<PersonalDocSec> GetPersonalDocSec()
+        public ActionResult<PersonalDocSec> GetPersonalDocSec(int pid = 0)
         {
-            var pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
             var model = _personInfoService.GetPersonalDocSec(pid);
             if (model != null)
                 return Ok(model);
@@ -115,9 +115,9 @@ namespace HRSystem.Controllers
         }
 
         [HttpPost("employment")]
-        public void UpdateEmployeeSec(Employee employee)
+        public void UpdateEmployeeSec(EmploymentSec employmentSec)
         {
-            _personInfoService.UpdateEmployeeSec(employee);
+            _personInfoService.UpdateEmployeeSec(employmentSec);
         }
 
         [HttpPost("emergencycontact")]
@@ -130,6 +130,22 @@ namespace HRSystem.Controllers
         public void UpdateDocument(PersonalDocSec docSec)
         {
             _personInfoService.UpdateDocument(docSec);
+        }
+
+        [HttpGet("OnboardingApplication")]
+        public ActionResult GetOnboardingApplication(int pid=0)
+        {
+            if (pid == 0) pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            var model = _personInfoDAO.GetApplicationStatus(pid);
+            return Ok(model);
+        }
+
+        [HttpPost("ChangeApplicationToPending")]
+        public ActionResult ChangeApplicationToPending()
+        {
+            int pid = Convert.ToInt32(User.FindFirstValue("PersonId"));
+            _personInfoDAO.ChangeApplicationStatus(pid);
+            return Ok(new { message = "Status update succeed" });
         }
 
     }

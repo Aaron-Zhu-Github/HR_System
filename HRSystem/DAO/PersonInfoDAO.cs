@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using HRSystem.Models;
 using HRSystem.DTO;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Security.Cryptography;
 
 namespace HRSystem.DAO
 {
@@ -15,7 +16,7 @@ namespace HRSystem.DAO
         {
             _dbContext = dbContext;
         }
-
+        
         //get user by userid
         public User GetUserByID(int userid)
         {
@@ -45,7 +46,13 @@ namespace HRSystem.DAO
         //get employee by pid
         public Employee GetEmployee(int pid)
         {
-            return _dbContext.Employees.Where(e => e.PersonId == pid).SingleOrDefault();
+            return _dbContext.Employees.Where(e => e.PersonId == pid).FirstOrDefault();
+        }
+
+        //get visastatus by visaid
+        public VisaStatus GetVisaStatus(int vid)
+        {
+            return _dbContext.VisaStatuses.Where(e => e.Id == vid).FirstOrDefault();
         }
 
         //get personal doc 
@@ -147,6 +154,38 @@ namespace HRSystem.DAO
 
             }
             _dbContext.SaveChanges();
+        }
+
+        //get applicationworkflow (onboarding type) status by personid -> employeeid
+        public ApplicationWorkFlow GetApplicationStatus(int pid)
+        {
+            var person = _dbContext.Persons.Where(p => p.Id == pid).Include(p => p.Employee).FirstOrDefault();
+            var res = new ApplicationWorkFlow();
+            if (person != null && person.Employee != null)
+            {
+                int eid = person.Employee.Id;
+                var application = _dbContext.ApplicationWorkFlows.Where(x => x.EmployeeId == eid && x.Type == "OnBoarding").FirstOrDefault();
+                if (application != null && application.Status != null)
+                    return application;
+            }
+            return res;
+        }
+
+        //change onboarding application status: rejected -> pending
+        public void ChangeApplicationStatus(int pid)
+        {
+            var person = _dbContext.Persons.Where(p => p.Id == pid).Include(p => p.Employee).FirstOrDefault();
+
+            if (person != null && person.Employee != null)
+            {
+                int eid = person.Employee.Id;
+                var application = _dbContext.ApplicationWorkFlows.Where(x => x.EmployeeId == eid && x.Type == "OnBoarding").FirstOrDefault();
+                if (application != null && application.Status != null)
+                {
+                    application.Status = "Pending";
+                    _dbContext.SaveChanges();
+                }
+            }
         }
     }
 }

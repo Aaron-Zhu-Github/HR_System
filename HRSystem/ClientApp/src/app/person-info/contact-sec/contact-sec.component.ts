@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-sec',
@@ -11,12 +11,14 @@ export class ContactSecComponent implements OnInit {
   public contactSec!: ContactSec;
   public editForm!: FormGroup;
   public editMode = false;
+  @Input() isHR!: boolean;
+  @Input() pid!: string;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
     this.editForm = this.formBuilder.group({
-      email: [''],
+      email: ['',Validators.required],
       workEmail: [''],
-      cellPhone: [''],
+      cellPhone: ['', Validators.required],
       alternatePhone: [''],
     });
   }
@@ -26,7 +28,7 @@ export class ContactSecComponent implements OnInit {
   }
 
   getContactSec() {
-    this.http.get<ContactSec>('https://localhost:5401/api/PersonalInformation/contact').subscribe(data => {
+    this.http.get<ContactSec>('https://localhost:5401/api/PersonalInformation/contact/?pid='+this.pid.toString()).subscribe(data => {
       this.contactSec = data;
     });
   }

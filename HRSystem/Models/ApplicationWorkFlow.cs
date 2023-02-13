@@ -14,7 +14,7 @@ namespace HRSystem.Models
 
         public int EmployeeId { get; set; }
         //EF relationship
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
 
 
         //[Required, DisplayName("Created Date")]
