@@ -56,6 +56,7 @@ export class HouseComponent
       )
   }
 
+  //Click
   openDetails(reportId: number) {
     this.router.navigate(['/comment', reportId]);
   }
